@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shim_app/ui/components/button.dart';
 import 'package:shim_app/ui/style/theme.dart';
 import 'package:intl/intl.dart';
+import 'package:shim_app/ui/widgets/event_widget.dart';
+
+import '../../models/event.dart';
 
 class EventView extends StatelessWidget {
   const EventView({Key? key}) : super(key: key);
@@ -9,7 +13,40 @@ class EventView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: [_addEventBar(context)]),
+      body: Column(children: [
+        _addEventBar(context),
+        Row(
+          children: [
+            StreamBuilder<QuerySnapshot>(
+              stream: Firestore.instance.collection("events").snapshots(),
+              builder: (context, snapshot) {
+                return !snapshot.hasData
+                    ? Center(child: CircularProgressIndicator())
+                    : Container(
+                        width: 333.0,
+                        child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemCount: snapshot.data?.documents.length,
+                          itemBuilder: (context, index) {
+                            DocumentSnapshot? data =
+                                snapshot.data?.documents[index];
+                            return EventWidget(
+                                title: data!['title'],
+                                location: data['location'],
+                                date: data['date'].toDate(),
+                                color: data['color'],
+                                endTime: data['endTime'],
+                                startTime: data['startTime'],
+                                repeatType: data['repeatType'],
+                                description: data['description']);
+                          },
+                        ));
+              },
+            ),
+          ],
+        )
+      ]),
     );
   }
 
