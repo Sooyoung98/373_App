@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 
 import 'base_model.dart';
 
-class SignUpViewModel extends BaseModel {
+class HomeViewModel extends BaseModel {
   final AuthenticationService _authenticationService =
       locator<AuthenticationService>();
   final DialogService _dialogService = locator<DialogService>();
@@ -38,7 +38,7 @@ class SignUpViewModel extends BaseModel {
 
     if (result is bool) {
       if (result) {
-        _navigationService.navigateTo(MainViewRoute);
+        _navigationService.navigateTo(HomeViewRoute);
       } else {
         await _dialogService.showDialog(
           title: 'Sign Up Failure',

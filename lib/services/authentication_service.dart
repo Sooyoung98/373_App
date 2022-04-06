@@ -1,5 +1,6 @@
 import 'package:shim_app/locator.dart';
 import 'package:shim_app/models/user.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shim_app/services/firestore_service.dart';
