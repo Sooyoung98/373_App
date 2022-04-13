@@ -26,7 +26,6 @@ class AddEventViewModel extends BaseModel {
       required String repeatType,
       required String description}) async {
     setBusy(true);
-    print("HEEEEEE");
     var _newEvent = Event(
         title: title,
         location: location,
@@ -40,21 +39,24 @@ class AddEventViewModel extends BaseModel {
     var result = await _firestoreService.uploadEvent(_newEvent);
 
     setBusy(false);
+  }
 
-    // if (result is bool) {
-    //   if (result) {
-    //     _navigationService.navigateTo(MainViewRoute);
-    //   } else {
-    //     await _dialogService.showDialog(
-    //       title: 'Unable to add new Event',
-    //       description: 'Cannot add new events..',
-    //     );
-    //   }
-    // } else {
-    //   await _dialogService.showDialog(
-    //     title: 'Not able to add event',
-    //     description: result,
-    //   );
-    // }
+  Future deleteEvent({required String id}) async {
+    setBusy(true);
+
+    var result = await _firestoreService.deleteEvent(id);
+
+    setBusy(false);
+
+    if (result is bool) {
+      if (result) {
+        _navigationService.navigateTo(MainViewRoute);
+      } else {
+        await _dialogService.showDialog(
+          title: 'Event Delete Failure',
+          description: 'An Error occurred so the event cannot be deleted.',
+        );
+      }
+    }
   }
 }

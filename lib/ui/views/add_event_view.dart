@@ -8,7 +8,7 @@ import 'package:shim_app/ui/style/theme.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:stacked/stacked.dart';
 
-import '../../viewmodels/add_event_view_model.dart';
+import '../../viewmodels/event_view_model.dart';
 import '../widgets/busy_button.dart';
 
 class AddEventView extends StatefulWidget {

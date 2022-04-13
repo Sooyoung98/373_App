@@ -1,3 +1,4 @@
+import 'package:shim_app/ui/components/button.dart';
 import 'package:shim_app/ui/shared/ui_helpers.dart';
 import 'package:shim_app/ui/widgets/busy_button.dart';
 import 'package:shim_app/ui/widgets/input_field.dart';
@@ -5,7 +6,7 @@ import 'package:shim_app/ui/widgets/text_link.dart';
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:stacked/stacked.dart';
-import 'package:shim_app/viewmodels/login_view_model.dart';
+import 'package:shim_app/viewmodels/auth_view_model.dart';
 
 class LoginView extends StatelessWidget {
   final emailController = TextEditingController();
@@ -13,8 +14,8 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<LoginViewModel>.reactive(
-      viewModelBuilder: () => LoginViewModel(),
+    return ViewModelBuilder<AuthViewModel>.reactive(
+      viewModelBuilder: () => AuthViewModel(),
       builder: (context, model, child) => Scaffold(
           backgroundColor: Colors.white,
           body: Padding(
@@ -57,8 +58,8 @@ class LoginView extends StatelessWidget {
                 ),
                 verticalSpaceMedium,
                 TextLink(
-                  'Create an Account if you\'re new.',
-                  onPressed: () {
+                  text: 'Create an Account if you\'re new.',
+                  onTap: () {
                     model.navigateToSignUp();
                   },
                 )

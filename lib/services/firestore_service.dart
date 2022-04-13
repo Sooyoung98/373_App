@@ -33,4 +33,14 @@ class FirestoreService {
       return e.toString();
     }
   }
+
+  Future deleteEvent(String id) async {
+    try {
+      await _eventsCollectionReference.document(id).delete();
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
 }

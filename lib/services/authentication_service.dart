@@ -67,4 +67,14 @@ class AuthenticationService {
       _currentUser = await _firestoreService.getUser(user.uid);
     }
   }
+
+  Future<bool> signOutWithEmail() async {
+    try {
+      var authResult = await _firebaseAuth.signOut();
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
 }

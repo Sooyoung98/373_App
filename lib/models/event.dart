@@ -1,4 +1,5 @@
 class Event {
+  final String? id;
   final String? title;
   final String? location;
   final DateTime? date;
@@ -9,7 +10,8 @@ class Event {
   final String? description;
 
   Event(
-      {this.title,
+      {this.id,
+      this.title,
       this.location,
       this.date,
       this.color,
@@ -19,7 +21,8 @@ class Event {
       this.description});
 
   Event.fromData(Map<String, dynamic> data)
-      : title = data['title'],
+      : id = data['id'],
+        title = data['title'],
         location = data['location'],
         date = data['date'],
         color = data['color'],
@@ -30,6 +33,7 @@ class Event {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'title': title,
       'location': location,
       'date': date,

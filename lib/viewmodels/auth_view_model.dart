@@ -3,11 +3,10 @@ import 'package:shim_app/locator.dart';
 import 'package:shim_app/services/authentication_service.dart';
 import 'package:shim_app/services/dialog_service.dart';
 import 'package:shim_app/services/navigation_service.dart';
-import 'package:flutter/foundation.dart';
 
 import 'base_model.dart';
 
-class LoginViewModel extends BaseModel {
+class AuthViewModel extends BaseModel {
   final AuthenticationService _authenticationService =
       locator<AuthenticationService>();
   final DialogService _dialogService = locator<DialogService>();
@@ -28,7 +27,7 @@ class LoginViewModel extends BaseModel {
 
     if (result is bool) {
       if (result) {
-        _navigationService.navigateTo(HomeViewRoute);
+        _navigationService.navigateTo(MainViewRoute);
       } else {
         await _dialogService.showDialog(
           title: 'Login Failure',
@@ -45,5 +44,19 @@ class LoginViewModel extends BaseModel {
 
   void navigateToSignUp() {
     _navigationService.navigateTo(SignUpViewRoute);
+  }
+
+  Future logout() async {
+    setBusy(true);
+
+    var result = await _authenticationService.signOutWithEmail();
+
+    setBusy(false);
+
+    if (result is bool) {
+      if (result) {
+        _navigationService.navigateTo(LoginViewRoute);
+      }
+    }
   }
 }

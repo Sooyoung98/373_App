@@ -5,8 +5,6 @@ import 'package:shim_app/ui/style/theme.dart';
 import 'package:intl/intl.dart';
 import 'package:shim_app/ui/widgets/event_widget.dart';
 
-import '../../models/event.dart';
-
 class EventView extends StatelessWidget {
   const EventView({Key? key}) : super(key: key);
 
@@ -31,6 +29,14 @@ class EventView extends StatelessWidget {
                           itemBuilder: (context, index) {
                             DocumentSnapshot? data =
                                 snapshot.data?.documents[index];
+                            //print(data!.documentID);
+                            // BusyButton(
+                            //   title: 'test',
+                            //   busy: model.busy,
+                            //   onPressed: () {
+                            //     model.deleteEvent(id: 'G0ZeHkGBoD3AdWRuafbl');
+                            //   },
+                            // )
                             return EventWidget(
                                 title: data!['title'],
                                 location: data['location'],

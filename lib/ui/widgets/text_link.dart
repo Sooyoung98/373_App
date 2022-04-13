@@ -2,15 +2,13 @@ import 'package:flutter/material.dart';
 
 class TextLink extends StatelessWidget {
   final String text;
-  final Function onPressed;
-  const TextLink(this.text, {required this.onPressed});
+  final Function()? onTap;
+  const TextLink({required this.text, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        onPressed;
-      },
+      onTap: onTap,
       child: Text(
         text,
         style: TextStyle(fontWeight: FontWeight.w700, fontSize: 14),
