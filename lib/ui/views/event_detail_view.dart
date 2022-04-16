@@ -14,15 +14,19 @@ import '../../viewmodels/event_view_model.dart';
 import '../widgets/busy_button.dart';
 
 class EventDetailView extends StatelessWidget {
-  const EventDetailView({
-    Key? key,
-    // required this.event
-  }) : super(key: key);
+  // const EventDetailView({
+  //   Key? key,
+  //   // required this.event
+  // }) : super(key: key);
+  var eventObject;
 
+  EventDetailView({this.eventObject});
   // final Event event;
 
   @override
   Widget build(BuildContext context) {
+    var event = this.eventObject;
+
     return ViewModelBuilder<AddEventViewModel>.reactive(
         viewModelBuilder: () => AddEventViewModel(),
         builder: (context, model, child) => Scaffold(
@@ -32,86 +36,87 @@ class EventDetailView extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 20, right: 20),
                 child: SingleChildScrollView(
                     child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      "Event Details",
-                      style: headingStyle,
-                    ),
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                      Text(
+                        "Event Details",
+                        style: headingStyle,
+                      ),
 
-                    // SizedBox(height: 12),
-                    // Text(event.title as String),
-                    // SizedBox(height: 12),
-                    // Text(event.description as String),
-                    // // const MyInputField(
-                    // //     title: "Requirements", hint: "Enter your requirements"),
-                    // SizedBox(height: 12),
-                    // Text(event.location as String),
-                    // SizedBox(
-                    //   height: 12,
-                    // ),
-                    // Text(
-                    //   DateFormat('yyyy-MM-dd').format(event.date as DateTime),
-                    //   style: GoogleFonts.lato(
-                    //     textStyle:
-                    //         TextStyle(fontSize: 15, color: Colors.grey[100]),
-                    //   ),
-                    // ),
-                    // SizedBox(height: 12),
-                    // Row(
-                    //   crossAxisAlignment: CrossAxisAlignment.center,
-                    //   children: [
-                    //     Icon(
-                    //       Icons.access_time_rounded,
-                    //       color: Colors.grey[200],
-                    //       size: 18,
-                    //     ),
-                    //     SizedBox(width: 4),
-                    //     Text(
-                    //       "${event.startTime} - ${event.endTime}",
-                    //       style: GoogleFonts.lato(
-                    //         textStyle: TextStyle(
-                    //             fontSize: 13, color: Colors.grey[100]),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
-                    // SizedBox(
-                    //   height: 18,
-                    // ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //   crossAxisAlignment: CrossAxisAlignment.center,
-                    //   children: [
-                    //     BusyButton(
-                    //       title: 'delete',
-                    //       busy: model.busy,
-                    //       onPressed: () {
-                    //         model.deleteEvent(id: event.id as String);
-                    //         Navigator.pop(context);
-                    //       },
-                    //     )
+                      SizedBox(height: 12),
+                      Text(event.title as String),
+                      SizedBox(height: 12),
+                      Text(event.description as String),
+                      // const MyInputField(
+                      //     title: "Requirements", hint: "Enter your requirements"),
+                      SizedBox(height: 12),
+                      Text(event.location as String),
+                      SizedBox(
+                        height: 12,
+                      ),
+                      Text(
+                        DateFormat('yyyy-MM-dd').format(event.date as DateTime),
+                        style: GoogleFonts.lato(
+                          textStyle:
+                              TextStyle(fontSize: 15, color: Colors.grey[100]),
+                        ),
+                      ),
+                      SizedBox(height: 12),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.access_time_rounded,
+                            color: Colors.grey[200],
+                            size: 18,
+                          ),
+                          SizedBox(width: 4),
+                          Text(
+                            "${event.startTime} - ${event.endTime}",
+                            style: GoogleFonts.lato(
+                              textStyle: TextStyle(
+                                  fontSize: 13, color: Colors.grey[100]),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 18,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          BusyButton(
+                            title: 'delete',
+                            busy: model.busy,
+                            onPressed: () {
+                              model.deleteEvent(id: event.id as String);
+                              Navigator.pop(context);
+                            },
+                          )
 
-                    //   title: 'Create Event',
-                    //   busy: model.busy,
-                    //   onPressed: () {
-                    //     print("HEEEEEE");
-                    //     model.addEvent(
-                    //         title: titleController.text,
-                    //         location: locationController.text,
-                    //         date: _selectedDate,
-                    //         color: _selectedColor,
-                    //         endTime: _endTime,
-                    //         startTime: _startTime,
-                    //         repeatType: _selectedRepeat,
-                    //         description: descriptionController.text);
-                    //     //Navigator.pop(context);
-                    //   },
-                    // )
-                    // ],
-                    // )
-                  ],
-                )))));
+                          //   title: 'Create Event',
+                          //   busy: model.busy,
+                          //   onPressed: () {
+                          //     print("HEEEEEE");
+                          //     model.addEvent(
+                          //         title: titleController.text,
+                          //         location: locationController.text,
+                          //         date: _selectedDate,
+                          //         color: _selectedColor,
+                          //         endTime: _endTime,
+                          //         startTime: _startTime,
+                          //         repeatType: _selectedRepeat,
+                          //         description: descriptionController.text);
+                          //     //Navigator.pop(context);
+                          //   },
+                          // )
+                          // ],
+                          // )
+                        ],
+                      )
+                    ])))));
   }
 
   _appBar(BuildContext context) {

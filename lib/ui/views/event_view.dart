@@ -73,6 +73,9 @@ class EventView extends StatelessWidget {
                                             //     arguments: EventDetailView(
                                             //       event: temp,
                                             //     ));
+                                            Navigator.pushNamed(
+                                                context, 'EventDetailView',
+                                                arguments: temp);
                                           },
                                           child: EventTile(temp))
                                     ],

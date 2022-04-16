@@ -39,7 +39,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case EventDetailViewRoute:
       return _getPageRoute(
         routeName: settings.name!,
-        viewToShow: EventDetailView(),
+        viewToShow: EventDetailView(eventObject: settings.arguments),
       );
     case MainViewRoute:
       return _getPageRoute(
