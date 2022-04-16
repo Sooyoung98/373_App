@@ -209,7 +209,7 @@ class _AddEventViewState extends State<AddEventView> {
                   backgroundColor: index == 0
                       ? Colors.blue
                       : index == 1
-                          ? Colors.yellow
+                          ? Colors.orange
                           : Colors.pink,
                   child: _selectedColor == index
                       ? Icon(Icons.done, color: Colors.white, size: 16)

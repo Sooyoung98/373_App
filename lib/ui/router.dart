@@ -1,4 +1,5 @@
 import 'package:shim_app/ui/views/add_event_view.dart';
+import 'package:shim_app/ui/views/event_detail_view.dart';
 import 'package:shim_app/ui/views/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:shim_app/constants/route_names.dart';
@@ -34,6 +35,11 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name!,
         viewToShow: ProfileView(),
+      );
+    case EventDetailViewRoute:
+      return _getPageRoute(
+        routeName: settings.name!,
+        viewToShow: EventDetailView(),
       );
     case MainViewRoute:
       return _getPageRoute(
