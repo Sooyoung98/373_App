@@ -68,11 +68,11 @@ class EventView extends StatelessWidget {
                                             // _showBottomSheet(context, temp);
                                             // Navigator.of(context)
                                             //     .pushNamed('EventDetailView');
-                                            Navigator.pushNamed(
-                                                context, 'EventDetailView',
-                                                arguments: EventDetailView(
-                                                  event: temp,
-                                                ));
+                                            // Navigator.pushNamed(
+                                            //     context, 'EventDetailView',
+                                            //     arguments: EventDetailView(
+                                            //       event: temp,
+                                            //     ));
                                           },
                                           child: EventTile(temp))
                                     ],
