@@ -12,7 +12,9 @@ class StartUpViewModel extends BaseModel {
   Future handleStartUpLogic() async {
     var hasLoggedInUser = await _authenticationService.isUserLoggedIn();
     if (hasLoggedInUser) {
-      _navigationService.navigateTo(MainViewRoute);
+      var user = _authenticationService.getUser();
+      print(user);
+      _navigationService.navigateTo(MainViewRoute, arguments: user);
     } else {
       _navigationService.navigateTo(LoginViewRoute);
     }

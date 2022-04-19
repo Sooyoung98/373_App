@@ -10,12 +10,14 @@ class SignUpView extends StatelessWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final fullNameController = TextEditingController();
+  final passwordConfirmController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<SignUpViewModel>.reactive(
       viewModelBuilder: () => SignUpViewModel(),
       builder: (context, model, child) => Scaffold(
+        appBar: _appBar(context),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 50.0),
           child: Column(
@@ -46,11 +48,16 @@ class SignUpView extends StatelessWidget {
                 controller: passwordController,
                 additionalNote: 'Password has to be a minimum of 6 characters.',
               ),
+              InputField(
+                placeholder: 'Password Confirm',
+                password: true,
+                controller: passwordConfirmController,
+              ),
               verticalSpaceSmall,
-              ExpansionList<String>(
-                  items: ['Admin', 'User'],
-                  title: model.selectedRole,
-                  onItemSelected: model.setSelectedRole),
+              // ExpansionList<String>(
+              //     items: ['Admin', 'User'],
+              //     title: model.selectedRole,
+              //     onItemSelected: model.setSelectedRole),
               verticalSpaceMedium,
               Row(
                 mainAxisSize: MainAxisSize.max,
@@ -73,5 +80,17 @@ class SignUpView extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _appBar(BuildContext context) {
+    return AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: const Icon(Icons.arrow_back_ios,
+                size: 20, color: Colors.black)));
   }
 }

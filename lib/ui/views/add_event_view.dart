@@ -27,8 +27,8 @@ class _AddEventViewState extends State<AddEventView> {
   String _endTime = "9:30 PM";
   String _startTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
   int _selectedColor = 0;
-  String _selectedRepeat = "None";
-  List<String> repeatList = ["None", "Daily", "Weekly", "Monthly"];
+  String _selectedType = "Engagement";
+  List<String> typeList = ["Engagement", "Recurring", "Urgent"];
 
   @override
   Widget build(BuildContext context) {
@@ -100,8 +100,8 @@ class _AddEventViewState extends State<AddEventView> {
                       ],
                     ),
                     MyInputField(
-                        title: "Repeat",
-                        hint: _selectedRepeat,
+                        title: "Type",
+                        hint: _selectedType,
                         widget: DropdownButton(
                           icon: const Icon(
                             Icons.keyboard_arrow_down,
@@ -115,10 +115,15 @@ class _AddEventViewState extends State<AddEventView> {
                           ),
                           onChanged: (String? newValue) {
                             setState(() {
-                              _selectedRepeat = newValue!;
+                              _selectedType = newValue!;
+                              // newValue == "Engagement"
+                              //     ? _selectedColor == 0
+                              //     : newValue == "Recurring"
+                              //         ? _selectedColor == 1
+                              //         : _selectedColor == 2;
                             });
                           },
-                          items: repeatList
+                          items: typeList
                               .map<DropdownMenuItem<String>>((String? value) {
                             return DropdownMenuItem<String>(
                                 value: value,
@@ -145,7 +150,7 @@ class _AddEventViewState extends State<AddEventView> {
                                   color: _selectedColor,
                                   endTime: _endTime,
                                   startTime: _startTime,
-                                  repeatType: _selectedRepeat,
+                                  repeatType: _selectedType,
                                   description: descriptionController.text);
                               Navigator.pop(context);
                             })
@@ -196,12 +201,17 @@ class _AddEventViewState extends State<AddEventView> {
         ),
         Wrap(
           children: List<Widget>.generate(3, (int index) {
+            _selectedType == "Engagement"
+                ? _selectedColor = 0
+                : _selectedType == "Recurring"
+                    ? _selectedColor = 1
+                    : _selectedColor = 2;
             return GestureDetector(
-              onTap: () {
-                setState(() {
-                  _selectedColor = index;
-                });
-              },
+              // onTap: () {
+              //   setState(() {
+              //     _selectedColor = index;
+              //   });
+              // },
               child: Padding(
                 padding: const EdgeInsets.only(right: 8.0),
                 child: CircleAvatar(

@@ -11,10 +11,13 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/get.dart';
 
 class EventView extends StatelessWidget {
-  const EventView({Key? key}) : super(key: key);
+  var user;
+
+  EventView({this.user});
 
   @override
   Widget build(BuildContext context) {
+    var user = this.user;
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: SingleChildScrollView(
@@ -75,7 +78,9 @@ class EventView extends StatelessWidget {
                                             //     ));
                                             Navigator.pushNamed(
                                                 context, 'EventDetailView',
-                                                arguments: temp);
+                                                arguments: EventDetailView(
+                                                    eventObject: temp,
+                                                    user: user));
                                           },
                                           child: EventTile(temp))
                                     ],
@@ -197,9 +202,11 @@ class EventView extends StatelessWidget {
                         style: headingStyle,
                       )
                     ])),
-            MyButton(
-                label: "+ Add Event",
-                onTap: () => Navigator.of(context).pushNamed('EventView'))
+            user.userRole == "Admin"
+                ? MyButton(
+                    label: "+ Add Event",
+                    onTap: () => Navigator.of(context).pushNamed('EventView'))
+                : Container()
           ],
         ));
   }

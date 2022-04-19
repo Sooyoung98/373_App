@@ -37,6 +37,14 @@ TextStyle get titleStyle {
           fontSize: 16, fontWeight: FontWeight.w400, color: Colors.black));
 }
 
+TextStyle get captionStyle {
+  return GoogleFonts.lato(
+      textStyle: const TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
+          color: Color.fromARGB(255, 47, 47, 47)));
+}
+
 TextStyle get subTitleStyle {
   return GoogleFonts.lato(
       textStyle: const TextStyle(

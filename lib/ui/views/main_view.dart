@@ -12,10 +12,13 @@ import 'package:shim_app/ui/views/home_view.dart';
 import 'package:shim_app/ui/style/theme.dart';
 
 class MainView extends StatelessWidget {
-  const MainView({Key? key}) : super(key: key);
+  var user;
+
+  MainView({this.user});
 
   @override
   Widget build(BuildContext context) {
+    var user = this.user;
     return ViewModelBuilder<MainViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         appBar: _appBar(),
@@ -76,7 +79,7 @@ class MainView extends StatelessWidget {
       case 0:
         return HomeView();
       case 1:
-        return EventView();
+        return EventView(user: user);
       case 2:
         return ProfileView();
       default:

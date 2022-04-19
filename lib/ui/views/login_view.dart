@@ -60,7 +60,7 @@ class LoginView extends StatelessWidget {
                 TextLink(
                   text: 'Create an Account if you\'re new.',
                   onTap: () {
-                    model.navigateToSignUp();
+                    Navigator.of(context).pushNamed('SignUpView');
                   },
                 )
               ],
