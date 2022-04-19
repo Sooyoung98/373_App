@@ -71,7 +71,8 @@ class HomeView extends StatelessWidget {
                                                 context, 'EventDetailView',
                                                 arguments: EventDetailView(
                                                     eventObject: temp,
-                                                    user: user));
+                                                    user: user,
+                                                    going: true));
                                           },
                                           child: EventTile(temp))
                                     ],
@@ -106,12 +107,12 @@ class HomeView extends StatelessWidget {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // Text(
+                      //   DateFormat.yMMMMd().format(DateTime.now()),
+                      //   style: subHeadingStyle,
+                      // ),
                       Text(
-                        DateFormat.yMMMMd().format(DateTime.now()),
-                        style: subHeadingStyle,
-                      ),
-                      Text(
-                        "Today",
+                        "Your Events",
                         style: headingStyle,
                       )
                     ])),

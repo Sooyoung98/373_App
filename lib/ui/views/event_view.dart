@@ -74,7 +74,8 @@ class EventView extends StatelessWidget {
                                                 context, 'EventDetailView',
                                                 arguments: EventDetailView(
                                                     eventObject: temp,
-                                                    user: user));
+                                                    user: user,
+                                                    going: false));
                                           },
                                           child:
                                               performCheck(user: user, e: temp))
