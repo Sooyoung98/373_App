@@ -43,4 +43,16 @@ class FirestoreService {
       return false;
     }
   }
+
+  Future addSelectedEvent(User user, Event event) async {
+    try {
+      await _usersCollectionReference.document(user.id).updateData({
+        "events": FieldValue.arrayUnion([event.toJson()])
+      });
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
 }

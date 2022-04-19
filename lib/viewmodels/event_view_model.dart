@@ -11,6 +11,8 @@ import '../services/firestore_service.dart';
 import 'base_model.dart';
 
 class AddEventViewModel extends BaseModel {
+  final AuthenticationService _authenticationService =
+      locator<AuthenticationService>();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirestoreService _firestoreService = locator<FirestoreService>();
   final DialogService _dialogService = locator<DialogService>();
@@ -51,6 +53,32 @@ class AddEventViewModel extends BaseModel {
     if (result is bool) {
       if (result) {
         _navigationService.navigateTo(MainViewRoute);
+      } else {
+        await _dialogService.showDialog(
+          title: 'Event Delete Failure',
+          description: 'An Error occurred so the event cannot be deleted.',
+        );
+      }
+    }
+  }
+
+  Future addEventToUser({required Event e}) async {
+    setBusy(true);
+
+    var user = _authenticationService.getUser();
+    var result = await _firestoreService.addSelectedEvent(user, e);
+
+    setBusy(false);
+
+    if (result is bool) {
+      if (result) {
+        await _authenticationService.updateCurrentUser();
+        var user = _authenticationService.getUser();
+        _navigationService.navigateTo(MainViewRoute, arguments: user);
+        // await _dialogService.showDialog(
+        //   title: 'Event Addition Success',
+        //   description: 'The selected event has been added to your list!',
+        // );
       } else {
         await _dialogService.showDialog(
           title: 'Event Delete Failure',

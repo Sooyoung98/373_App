@@ -42,11 +42,11 @@ class AuthenticationService {
 
       // create a new user profile on firestore
       _currentUser = User(
-        id: authResult.user.uid,
-        email: email,
-        fullName: fullName,
-        userRole: role,
-      );
+          id: authResult.user.uid,
+          email: email,
+          fullName: fullName,
+          userRole: role,
+          myEvents: []);
 
       await _firestoreService.createUser(_currentUser);
 
@@ -64,6 +64,11 @@ class AuthenticationService {
 
   User getUser() {
     return _currentUser;
+  }
+
+  Future updateCurrentUser() async {
+    var user = await _firebaseAuth.currentUser();
+    await _populateCurrentUser(user);
   }
 
   Future _populateCurrentUser(FirebaseUser user) async {

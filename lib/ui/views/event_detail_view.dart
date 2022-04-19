@@ -139,29 +139,9 @@ class EventDetailView extends StatelessWidget {
                                   title: 'Going',
                                   busy: model.busy,
                                   onPressed: () {
-                                    // model.deleteEvent(id: event.id as String);
-                                    Navigator.pop(context);
+                                    model.addEventToUser(e: event);
                                   },
                                 )
-
-                          //   title: 'Create Event',
-                          //   busy: model.busy,
-                          //   onPressed: () {
-                          //     print("HEEEEEE");
-                          //     model.addEvent(
-                          //         title: titleController.text,
-                          //         location: locationController.text,
-                          //         date: _selectedDate,
-                          //         color: _selectedColor,
-                          //         endTime: _endTime,
-                          //         startTime: _startTime,
-                          //         repeatType: _selectedRepeat,
-                          //         description: descriptionController.text);
-                          //     //Navigator.pop(context);
-                          //   },
-                          // )
-                          // ],
-                          // )
                         ],
                       )
                     ])))));
