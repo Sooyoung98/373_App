@@ -20,14 +20,16 @@ class EventDetailView extends StatelessWidget {
   // }) : super(key: key);
   var eventObject;
   var user;
+  bool going;
 
-  EventDetailView({this.eventObject, this.user});
+  EventDetailView({this.eventObject, this.user, required this.going});
   // final Event event;
 
   @override
   Widget build(BuildContext context) {
     var event = this.eventObject;
     var user = this.user;
+    bool going = this.going;
     return ViewModelBuilder<AddEventViewModel>.reactive(
         viewModelBuilder: () => AddEventViewModel(),
         builder: (context, model, child) => Scaffold(
@@ -136,13 +138,23 @@ class EventDetailView extends StatelessWidget {
                                     Navigator.pop(context);
                                   },
                                 )
-                              : BusyButton(
-                                  title: 'Going',
-                                  busy: model.busy,
-                                  onPressed: () {
-                                    model.addEventToUser(e: event);
-                                  },
-                                )
+                              : going
+                                  ?
+                                  // BusyButton(
+                                  //     title: 'Not Going',
+                                  //     busy: model.busy,
+                                  //     onPressed: () {
+                                  //       model.addEventToUser(e: event);
+                                  //     },
+                                  //   )
+                                  Container()
+                                  : BusyButton(
+                                      title: 'Going',
+                                      busy: model.busy,
+                                      onPressed: () {
+                                        model.addEventToUser(e: event);
+                                      },
+                                    )
                         ],
                       )
                     ])))));

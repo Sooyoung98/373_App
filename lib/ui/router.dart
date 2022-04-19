@@ -40,8 +40,8 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       var args = settings.arguments as EventDetailView;
       return _getPageRoute(
         routeName: settings.name!,
-        viewToShow:
-            EventDetailView(eventObject: args.eventObject, user: args.user),
+        viewToShow: EventDetailView(
+            eventObject: args.eventObject, user: args.user, going: args.going),
       );
     case MainViewRoute:
       return _getPageRoute(
