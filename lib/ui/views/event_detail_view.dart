@@ -126,6 +126,7 @@ class EventDetailView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          SizedBox(width: 12),
                           user.userRole == "Admin"
                               ? BusyButton(
                                   title: 'delete',

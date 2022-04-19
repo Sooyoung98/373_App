@@ -34,7 +34,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
     case ProfileViewRoute:
       return _getPageRoute(
         routeName: settings.name!,
-        viewToShow: ProfileView(),
+        viewToShow: ProfileView(user: settings.arguments),
       );
     case EventDetailViewRoute:
       var args = settings.arguments as EventDetailView;

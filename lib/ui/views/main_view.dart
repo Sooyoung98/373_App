@@ -82,7 +82,7 @@ class MainView extends StatelessWidget {
       case 1:
         return EventView(user: user);
       case 2:
-        return ProfileView();
+        return ProfileView(user: user);
       default:
         return HomeView();
     }

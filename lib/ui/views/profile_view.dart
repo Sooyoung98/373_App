@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shim_app/ui/components/button.dart';
+import 'package:shim_app/ui/style/theme.dart';
 import 'package:shim_app/ui/widgets/busy_button.dart';
 import 'package:shim_app/viewmodels/auth_view_model.dart';
 import 'package:shim_app/viewmodels/event_view_model.dart';
@@ -8,36 +10,80 @@ import 'package:shim_app/viewmodels/event_view_model.dart';
 import 'package:stacked/stacked.dart';
 
 class ProfileView extends StatelessWidget {
-  const ProfileView({Key? key}) : super(key: key);
+  var user;
+
+  ProfileView({this.user});
 
   @override
   Widget build(BuildContext context) {
+    var user = this.user;
     return ViewModelBuilder<AuthViewModel>.reactive(
         viewModelBuilder: () => AuthViewModel(),
         builder: (context, model, child) => Scaffold(
             backgroundColor: Colors.white,
-            body: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 50),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      BusyButton(
-                        title: 'Logout',
-                        busy: model.busy,
-                        onPressed: () {
-                          model.logout();
-                        },
+            body: Container(
+                padding: const EdgeInsets.only(left: 30, right: 25),
+                child: SingleChildScrollView(
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                      SizedBox(height: 20),
+                      Text(
+                        "Profile",
+                        style: headingStyle,
                       ),
-                    ],
-                  ),
-                ],
-              ),
-            )));
+                      SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(width: 12),
+                          CircleAvatar(
+                              radius: 80, backgroundColor: Colors.grey),
+                          SizedBox(width: 12),
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        "Name:",
+                        style: captionStyle,
+                      ),
+                      SizedBox(height: 12),
+                      Text(
+                        user.fullName as String,
+                        style: GoogleFonts.lato(
+                          textStyle: TextStyle(fontSize: 15),
+                        ),
+                      ),
+                      SizedBox(height: 12),
+                      Text(
+                        "Email:",
+                        style: captionStyle,
+                      ),
+                      SizedBox(height: 12),
+                      Text(
+                        user.email as String,
+                        style: GoogleFonts.lato(
+                          textStyle: TextStyle(fontSize: 15),
+                        ),
+                      ),
+                      // const MyInputField(
+                      //     title: "Requirements", hint: "Enter your requirements"),
+                      SizedBox(height: 50),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(width: 12),
+                          BusyButton(
+                            title: 'Logout',
+                            busy: model.busy,
+                            onPressed: () {
+                              model.logout();
+                            },
+                          ),
+                        ],
+                      )
+                    ])))));
   }
 }
