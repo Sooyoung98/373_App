@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shim_app/models/event.dart';
 import 'package:shim_app/ui/components/button.dart';
@@ -41,18 +42,11 @@ class EventView extends StatelessWidget {
                             itemBuilder: (context, index) {
                               DocumentSnapshot? data =
                                   snapshot.data?.documents[index];
-                              //print(data!.documentID);
-                              // BusyButton(
-                              //   title: 'test',
-                              //   busy: model.busy,
-                              //   onPressed: () {
-                              //     model.deleteEvent(id: 'G0ZeHkGBoD3AdWRuafbl');
-                              //   },
-                              // )
 
+                              // if user.myEvents
                               Event? temp = Event(
-                                  // id: data!.documentID,
-                                  title: data!['title'],
+                                  id: data!.documentID,
+                                  title: data['title'],
                                   location: data['location'],
                                   date: data['date'].toDate(),
                                   color: data['color'],
@@ -82,7 +76,8 @@ class EventView extends StatelessWidget {
                                                     eventObject: temp,
                                                     user: user));
                                           },
-                                          child: EventTile(temp))
+                                          child:
+                                              performCheck(user: user, e: temp))
                                     ],
                                   ))));
                               // return EventWidget(
@@ -209,6 +204,19 @@ class EventView extends StatelessWidget {
                 : Container()
           ],
         ));
+  }
+
+  performCheck({user, required Event e}) {
+    List<dynamic> goingEvents = user.myEvents;
+    bool found = false;
+
+    for (Map<String, dynamic> m in goingEvents) {
+      if (m['id'] == e.id) {
+        found = true;
+        break;
+      }
+    }
+    return (found == true) ? Container() : EventTile(e);
   }
 }
 

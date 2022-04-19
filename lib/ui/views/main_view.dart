@@ -71,13 +71,14 @@ class MainView extends StatelessWidget {
     return AppBar(
       title: const Text('SHIM'),
       backgroundColor: AppColors.primaryColor,
+      automaticallyImplyLeading: false,
     );
   }
 
   Widget getViewForIndex(int index) {
     switch (index) {
       case 0:
-        return HomeView();
+        return HomeView(user: user);
       case 1:
         return EventView(user: user);
       case 2:

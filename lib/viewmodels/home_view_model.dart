@@ -13,43 +13,43 @@ class HomeViewModel extends BaseModel {
   final DialogService _dialogService = locator<DialogService>();
   final NavigationService _navigationService = locator<NavigationService>();
 
-  String _selectedRole = 'Select a User Role';
-  String get selectedRole => _selectedRole;
+  // String _selectedRole = 'Select a User Role';
+  // String get selectedRole => _selectedRole;
 
-  void setSelectedRole(dynamic role) {
-    _selectedRole = role;
-    notifyListeners();
-  }
+  // void setSelectedRole(dynamic role) {
+  //   _selectedRole = role;
+  //   notifyListeners();
+  // }
 
-  Future signUp({
-    required String email,
-    required String password,
-    required String fullName,
-  }) async {
-    setBusy(true);
+  // Future signUp({
+  //   required String email,
+  //   required String password,
+  //   required String fullName,
+  // }) async {
+  //   setBusy(true);
 
-    var result = await _authenticationService.signUpWithEmail(
-        email: email,
-        password: password,
-        fullName: fullName,
-        role: _selectedRole);
+  //   var result = await _authenticationService.signUpWithEmail(
+  //       email: email,
+  //       password: password,
+  //       fullName: fullName,
+  //       role: _selectedRole);
 
-    setBusy(false);
+  //   setBusy(false);
 
-    if (result is bool) {
-      if (result) {
-        _navigationService.navigateTo(HomeViewRoute);
-      } else {
-        await _dialogService.showDialog(
-          title: 'Sign Up Failure',
-          description: 'General sign up failure. Please try again later',
-        );
-      }
-    } else {
-      await _dialogService.showDialog(
-        title: 'Sign Up Failure',
-        description: result,
-      );
-    }
-  }
+  //   if (result is bool) {
+  //     if (result) {
+  //       _navigationService.navigateTo(HomeViewRoute);
+  //     } else {
+  //       await _dialogService.showDialog(
+  //         title: 'Sign Up Failure',
+  //         description: 'General sign up failure. Please try again later',
+  //       );
+  //     }
+  //   } else {
+  //     await _dialogService.showDialog(
+  //       title: 'Sign Up Failure',
+  //       description: result,
+  //     );
+  //   }
+  // }
 }
