@@ -27,7 +27,8 @@ class AuthViewModel extends BaseModel {
 
     if (result is bool) {
       if (result) {
-        _navigationService.navigateTo(MainViewRoute);
+        var user = _authenticationService.getUser();
+        _navigationService.navigateTo(MainViewRoute, arguments: user);
       } else {
         await _dialogService.showDialog(
           title: 'Login Failure',

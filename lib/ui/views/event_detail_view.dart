@@ -19,14 +19,15 @@ class EventDetailView extends StatelessWidget {
   //   // required this.event
   // }) : super(key: key);
   var eventObject;
+  var user;
 
-  EventDetailView({this.eventObject});
+  EventDetailView({this.eventObject, this.user});
   // final Event event;
 
   @override
   Widget build(BuildContext context) {
     var event = this.eventObject;
-
+    var user = this.user;
     return ViewModelBuilder<AddEventViewModel>.reactive(
         viewModelBuilder: () => AddEventViewModel(),
         builder: (context, model, child) => Scaffold(
@@ -44,22 +45,62 @@ class EventDetailView extends StatelessWidget {
                       ),
 
                       SizedBox(height: 12),
-                      Text(event.title as String),
+                      Text(
+                        "Title:",
+                        style: captionStyle,
+                      ),
                       SizedBox(height: 12),
-                      Text(event.description as String),
+                      Text(
+                        event.title as String,
+                        style: GoogleFonts.lato(
+                          textStyle: TextStyle(fontSize: 15),
+                        ),
+                      ),
+                      SizedBox(height: 12),
+                      Text(
+                        "Description:",
+                        style: captionStyle,
+                      ),
+                      SizedBox(height: 12),
+                      Text(
+                        event.description as String,
+                        style: GoogleFonts.lato(
+                          textStyle: TextStyle(fontSize: 15),
+                        ),
+                      ),
                       // const MyInputField(
                       //     title: "Requirements", hint: "Enter your requirements"),
                       SizedBox(height: 12),
-                      Text(event.location as String),
+                      Text(
+                        "Location:",
+                        style: captionStyle,
+                      ),
+                      SizedBox(height: 12),
+                      Text(
+                        event.location as String,
+                        style: GoogleFonts.lato(
+                          textStyle: TextStyle(fontSize: 15),
+                        ),
+                      ),
                       SizedBox(
                         height: 12,
                       ),
                       Text(
+                        "Date:",
+                        style: captionStyle,
+                      ),
+                      SizedBox(height: 12),
+                      Text(
                         DateFormat('yyyy-MM-dd').format(event.date as DateTime),
                         style: GoogleFonts.lato(
-                          textStyle:
-                              TextStyle(fontSize: 15, color: Colors.grey[100]),
+                          textStyle: TextStyle(fontSize: 15),
                         ),
+                      ),
+
+                      SizedBox(height: 12),
+                      Text(
+                        "Time:",
+                        style: captionStyle,
                       ),
                       SizedBox(height: 12),
                       Row(
@@ -67,15 +108,13 @@ class EventDetailView extends StatelessWidget {
                         children: [
                           Icon(
                             Icons.access_time_rounded,
-                            color: Colors.grey[200],
                             size: 18,
                           ),
                           SizedBox(width: 4),
                           Text(
                             "${event.startTime} - ${event.endTime}",
                             style: GoogleFonts.lato(
-                              textStyle: TextStyle(
-                                  fontSize: 13, color: Colors.grey[100]),
+                              textStyle: TextStyle(fontSize: 13),
                             ),
                           ),
                         ],
@@ -87,14 +126,23 @@ class EventDetailView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          BusyButton(
-                            title: 'delete',
-                            busy: model.busy,
-                            onPressed: () {
-                              model.deleteEvent(id: event.id as String);
-                              Navigator.pop(context);
-                            },
-                          )
+                          user.userRole == "Admin"
+                              ? BusyButton(
+                                  title: 'delete',
+                                  busy: model.busy,
+                                  onPressed: () {
+                                    model.deleteEvent(id: event.id as String);
+                                    Navigator.pop(context);
+                                  },
+                                )
+                              : BusyButton(
+                                  title: 'Going',
+                                  busy: model.busy,
+                                  onPressed: () {
+                                    // model.deleteEvent(id: event.id as String);
+                                    Navigator.pop(context);
+                                  },
+                                )
 
                           //   title: 'Create Event',
                           //   busy: model.busy,

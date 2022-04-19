@@ -37,14 +37,16 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: ProfileView(),
       );
     case EventDetailViewRoute:
+      var args = settings.arguments as EventDetailView;
       return _getPageRoute(
         routeName: settings.name!,
-        viewToShow: EventDetailView(eventObject: settings.arguments),
+        viewToShow:
+            EventDetailView(eventObject: args.eventObject, user: args.user),
       );
     case MainViewRoute:
       return _getPageRoute(
         routeName: settings.name!,
-        viewToShow: MainView(),
+        viewToShow: MainView(user: settings.arguments),
       );
     default:
       return MaterialPageRoute(

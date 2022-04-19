@@ -29,16 +29,13 @@ class SignUpViewModel extends BaseModel {
     setBusy(true);
 
     var result = await _authenticationService.signUpWithEmail(
-        email: email,
-        password: password,
-        fullName: fullName,
-        role: _selectedRole);
+        email: email, password: password, fullName: fullName, role: "User");
 
     setBusy(false);
 
     if (result is bool) {
       if (result) {
-        _navigationService.navigateTo(MainViewRoute);
+        _navigationService.pop();
       } else {
         await _dialogService.showDialog(
           title: 'Sign Up Failure',
