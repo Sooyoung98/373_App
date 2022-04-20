@@ -52,7 +52,7 @@ class AddEventViewModel extends BaseModel {
 
     if (result is bool) {
       if (result) {
-        _navigationService.navigateTo(MainViewRoute);
+        // _navigationService.navigateTo(MainViewRoute);
       } else {
         await _dialogService.showDialog(
           title: 'Event Delete Failure',

@@ -9,6 +9,7 @@ import 'package:shim_app/viewmodels/main_view_model.dart';
 import 'package:shim_app/ui/views/profile_view.dart';
 import 'package:shim_app/ui/views/event_view.dart';
 import 'package:shim_app/ui/views/home_view.dart';
+import 'package:shim_app/ui/views/admin_home_view.dart';
 import 'package:shim_app/ui/style/theme.dart';
 
 class MainView extends StatelessWidget {
@@ -78,13 +79,17 @@ class MainView extends StatelessWidget {
   Widget getViewForIndex(int index) {
     switch (index) {
       case 0:
-        return HomeView(user: user);
+        return user.userRole == "Admin"
+            ? AdminHomeView()
+            : HomeView(user: user);
       case 1:
         return EventView(user: user);
       case 2:
         return ProfileView(user: user);
       default:
-        return HomeView();
+        return user.userRole == "Admin"
+            ? AdminHomeView()
+            : HomeView(user: user);
     }
   }
 }
