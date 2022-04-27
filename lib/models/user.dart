@@ -7,16 +7,16 @@ class User {
   final String? fullName;
   final String? email;
   final String? userRole;
-  List<dynamic>? myEvents;
+  List<dynamic>? events;
 
-  User({this.id, this.fullName, this.email, this.userRole, this.myEvents});
+  User({this.id, this.fullName, this.email, this.userRole, this.events});
 
   User.fromData(Map<String, dynamic> data)
       : id = data['id'],
         fullName = data['fullName'],
         email = data['email'],
         userRole = data['userRole'],
-        myEvents = data['events'];
+        events = data['events'];
 
   Map<String, dynamic> toJson() {
     return {
@@ -24,7 +24,7 @@ class User {
       'fullName': fullName,
       'email': email,
       'userRole': userRole,
-      'myEvents': myEvents
+      'events': events
     };
   }
 }

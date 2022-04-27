@@ -30,7 +30,10 @@ class EventView extends StatelessWidget {
             Row(
               children: [
                 StreamBuilder<QuerySnapshot>(
-                  stream: Firestore.instance.collection("events").snapshots(),
+                  stream: Firestore.instance
+                      .collection("events")
+                      .where("active", isEqualTo: true)
+                      .snapshots(),
                   builder: (context, snapshot) {
                     return !snapshot.hasData
                         ? Center(child: CircularProgressIndicator())
@@ -42,8 +45,8 @@ class EventView extends StatelessWidget {
                             itemBuilder: (context, index) {
                               DocumentSnapshot? data =
                                   snapshot.data?.documents[index];
-
-                              // if user.myEvents
+                              DocumentReference? ref = data?.reference;
+                              // if user.events
                               Event? temp = Event(
                                   id: data!.documentID,
                                   title: data['title'],
@@ -74,11 +77,11 @@ class EventView extends StatelessWidget {
                                                 context, 'EventDetailView',
                                                 arguments: EventDetailView(
                                                     eventObject: temp,
+                                                    eventRef: ref,
                                                     user: user,
                                                     going: false));
                                           },
-                                          child:
-                                              performCheck(user: user, e: temp))
+                                          child: EventTile(temp))
                                     ],
                                   ))));
                               // return EventWidget(
@@ -206,20 +209,25 @@ class EventView extends StatelessWidget {
           ],
         ));
   }
-
-  performCheck({user, required Event e}) {
-    List<dynamic> goingEvents = user.myEvents;
-    bool found = false;
-
-    for (Map<String, dynamic> m in goingEvents) {
-      if (m['id'] == e.id) {
-        found = true;
-        break;
-      }
-    }
-    return (found == true) ? Container() : EventTile(e);
-  }
 }
+
+/* 
+ After user testing, decided not to filter out the events that the user 
+ decided to go to. 
+*/
+//   performCheck({user, required Event e}) {
+//     List<dynamic> goingEvents = user.events;
+//     bool found = false;
+
+//     for (Map<String, dynamic> m in goingEvents) {
+//       if (m['id'] == e.id) {
+//         found = true;
+//         break;
+//       }
+//     }
+//     return (found == true) ? Container() : EventTile(e);
+//   }
+// }
 
 // import 'package:flutter/material.dart';
 // import 'package:shim_app/fake_data.dart';

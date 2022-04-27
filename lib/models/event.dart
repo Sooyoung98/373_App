@@ -8,6 +8,7 @@ class Event {
   final String? startTime;
   final String? repeatType;
   final String? description;
+  final bool? active;
 
   Event(
       {this.id,
@@ -18,7 +19,8 @@ class Event {
       this.endTime,
       this.startTime,
       this.repeatType,
-      this.description});
+      this.description,
+      this.active});
 
   Event.fromData(Map<String, dynamic> data)
       : id = data['id'],
@@ -29,7 +31,8 @@ class Event {
         endTime = data['endTime'],
         startTime = data['startTime'],
         repeatType = data['repeatType'],
-        description = data['description'];
+        description = data['description'],
+        active = data['active'];
 
   Map<String, dynamic> toJson() {
     return {
@@ -41,7 +44,8 @@ class Event {
       'endTime': endTime,
       'startTime': startTime,
       'repeatType': repeatType,
-      'description': description
+      'description': description,
+      'active': active
     };
   }
 }
