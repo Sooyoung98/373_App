@@ -46,7 +46,7 @@ class AuthenticationService {
           email: email,
           fullName: fullName,
           userRole: role,
-          myEvents: []);
+          events: []);
 
       await _firestoreService.createUser(_currentUser);
 

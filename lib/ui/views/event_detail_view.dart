@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -19,17 +20,26 @@ class EventDetailView extends StatelessWidget {
   //   // required this.event
   // }) : super(key: key);
   var eventObject;
+  var eventRef;
   var user;
   bool going;
 
-  EventDetailView({this.eventObject, this.user, required this.going});
+  EventDetailView(
+      {this.eventObject, this.eventRef, this.user, required this.going});
   // final Event event;
 
   @override
   Widget build(BuildContext context) {
     var event = this.eventObject;
+    DocumentReference ref = this.eventRef;
     var user = this.user;
     bool going = this.going;
+    var found = false;
+    for (DocumentReference d in user.events) {
+      if (d.documentID == ref.documentID) {
+        found = true;
+      }
+    }
     return ViewModelBuilder<AddEventViewModel>.reactive(
         viewModelBuilder: () => AddEventViewModel(),
         builder: (context, model, child) => Scaffold(
@@ -138,21 +148,20 @@ class EventDetailView extends StatelessWidget {
                                     Navigator.pop(context);
                                   },
                                 )
-                              : going
-                                  ?
-                                  // BusyButton(
-                                  //     title: 'Not Going',
-                                  //     busy: model.busy,
-                                  //     onPressed: () {
-                                  //       model.addEventToUser(e: event);
-                                  //     },
-                                  //   )
-                                  Container()
+                              : found
+                                  ? BusyButton(
+                                      title: 'Undo',
+                                      busy: model.busy,
+                                      onPressed: () {
+                                        model.undoEventToUser(e: ref);
+                                      },
+                                    )
+                                  //Container()
                                   : BusyButton(
                                       title: 'Going',
                                       busy: model.busy,
                                       onPressed: () {
-                                        model.addEventToUser(e: event);
+                                        model.addEventToUser(e: ref);
                                       },
                                     )
                         ],

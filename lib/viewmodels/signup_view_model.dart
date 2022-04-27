@@ -27,7 +27,7 @@ class SignUpViewModel extends BaseModel {
     required String fullName,
   }) async {
     setBusy(true);
-
+    print("AM I HERE?");
     var result = await _authenticationService.signUpWithEmail(
         email: email, password: password, fullName: fullName, role: "User");
 

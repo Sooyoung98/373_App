@@ -22,9 +22,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: SignUpView(),
       );
     case HomeViewRoute:
+      var args = settings.arguments as HomeView;
       return _getPageRoute(
         routeName: settings.name!,
-        viewToShow: HomeView(),
+        viewToShow: HomeView(user: args.user),
       );
     case EventViewRoute:
       return _getPageRoute(
@@ -41,7 +42,10 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name!,
         viewToShow: EventDetailView(
-            eventObject: args.eventObject, user: args.user, going: args.going),
+            eventObject: args.eventObject,
+            eventRef: args.eventRef,
+            user: args.user,
+            going: args.going),
       );
     case MainViewRoute:
       return _getPageRoute(

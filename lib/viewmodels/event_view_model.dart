@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shim_app/constants/route_names.dart';
 import 'package:shim_app/locator.dart';
@@ -36,7 +37,8 @@ class AddEventViewModel extends BaseModel {
         endTime: endTime,
         startTime: startTime,
         repeatType: repeatType,
-        description: description);
+        description: description,
+        active: true);
 
     var result = await _firestoreService.uploadEvent(_newEvent);
 
@@ -62,11 +64,37 @@ class AddEventViewModel extends BaseModel {
     }
   }
 
-  Future addEventToUser({required Event e}) async {
+  Future addEventToUser({required DocumentReference e}) async {
     setBusy(true);
 
     var user = _authenticationService.getUser();
     var result = await _firestoreService.addSelectedEvent(user, e);
+
+    setBusy(false);
+
+    if (result is bool) {
+      if (result) {
+        await _authenticationService.updateCurrentUser();
+        var user = _authenticationService.getUser();
+        _navigationService.navigateTo(MainViewRoute, arguments: user);
+        // await _dialogService.showDialog(
+        //   title: 'Event Addition Success',
+        //   description: 'The selected event has been added to your list!',
+        // );
+      } else {
+        await _dialogService.showDialog(
+          title: 'Event Delete Failure',
+          description: 'An Error occurred so the event cannot be deleted.',
+        );
+      }
+    }
+  }
+
+  Future undoEventToUser({required DocumentReference e}) async {
+    setBusy(true);
+
+    var user = _authenticationService.getUser();
+    var result = await _firestoreService.undoSelectedEvent(user, e);
 
     setBusy(false);
 

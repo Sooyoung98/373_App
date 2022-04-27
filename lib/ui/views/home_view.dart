@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:get/state_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:shim_app/models/event.dart';
+import 'package:shim_app/models/user.dart';
 import 'package:shim_app/ui/components/event_tile.dart';
 import 'package:shim_app/ui/style/theme.dart';
 import 'package:shim_app/ui/views/event_detail_view.dart';
+import 'package:tuple/tuple.dart';
 
 class HomeView extends StatelessWidget {
   var user;
@@ -15,8 +18,8 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var user = this.user;
-    Stream<DocumentSnapshot> UserInfoStream =
-        Firestore.instance.collection('users').document(user.id).snapshots();
+    // Stream<DocumentSnapshot> UserInfoStream =
+    //     Firestore.instance.collection('users').document(user.id).snapshots();
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: SingleChildScrollView(
@@ -27,30 +30,45 @@ class HomeView extends StatelessWidget {
             ),
             Row(
               children: [
-                StreamBuilder<DocumentSnapshot>(
-                  stream: UserInfoStream,
-                  builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                FutureBuilder(
+                  future: getList(user),
+                  builder: (context, AsyncSnapshot snapshot) {
                     return !snapshot.hasData
                         ? Center(child: CircularProgressIndicator())
                         : Expanded(
                             child: ListView.builder(
                             // scrollDirection: Axis.vertical,
                             shrinkWrap: true,
-                            itemCount: snapshot.data?['events'].length,
+                            itemCount: snapshot.data?.length,
                             itemBuilder: (context, index) {
-                              var data = snapshot.data?['events'][index];
-
-                              // if user.myEvents
+                              var data = snapshot.data?[index];
                               Event? temp = Event(
-                                  id: data!['id'],
-                                  title: data['title'],
-                                  location: data['location'],
-                                  date: data['date'].toDate(),
-                                  color: data['color'],
-                                  endTime: data['endTime'],
-                                  startTime: data['startTime'],
-                                  repeatType: data['repeatType'],
-                                  description: data['description']);
+                                  id: data.item2.data!['id'],
+                                  title: data.item2.data['title'],
+                                  location: data.item2.data['location'],
+                                  date: data.item2.data['date'].toDate(),
+                                  color: data.item2.data['color'],
+                                  endTime: data.item2.data['endTime'],
+                                  startTime: data.item2.data['startTime'],
+                                  repeatType: data.item2.data['repeatType'],
+                                  description: data.item2.data['description']);
+
+                              // docRef.get().then((DocumentSnapshot snap) {
+                              //   if (snap.exists) {
+                              //     Event? temp = Event(
+                              //         id: snap['id'],
+                              //         title: snap['title'],
+                              //         location: snap['location'],
+                              //         date: snap['date'].toDate(),
+                              //         color: snap['color'],
+                              //         endTime: snap['endTime'],
+                              //         startTime: snap['startTime'],
+                              //         repeatType: snap['repeatType'],
+                              //         description: snap['description']);
+                              //     e.add(temp);
+                              //   }
+                              // });
+
                               return AnimationConfiguration.staggeredList(
                                   position: index,
                                   child: SlideAnimation(
@@ -71,6 +89,7 @@ class HomeView extends StatelessWidget {
                                                 context, 'EventDetailView',
                                                 arguments: EventDetailView(
                                                     eventObject: temp,
+                                                    eventRef: data.item1,
                                                     user: user,
                                                     going: true));
                                           },
@@ -94,6 +113,20 @@ class HomeView extends StatelessWidget {
             )
           ]),
         ));
+  }
+
+  Future getList(User u) async {
+    List<Tuple2<DocumentReference, DocumentSnapshot>> eventList = [];
+    for (DocumentReference e in u.events!) {
+      DocumentSnapshot datasnapshot = await e.get();
+      if (datasnapshot.exists) {
+        if (datasnapshot.data["active"] == true) {
+          var t = Tuple2<DocumentReference, DocumentSnapshot>(e, datasnapshot);
+          eventList.add(t);
+        }
+      }
+    }
+    return eventList;
   }
 
   _addHomeBar(BuildContext context) {

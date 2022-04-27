@@ -11,6 +11,7 @@ class FirestoreService {
 
   Future createUser(User user) async {
     try {
+      print(user.toJson());
       await _usersCollectionReference.document(user.id).setData(user.toJson());
     } catch (e) {
       return e.toString();
@@ -22,6 +23,7 @@ class FirestoreService {
       var userData = await _usersCollectionReference.document(uid).get();
       return User.fromData(userData.data);
     } catch (e) {
+      print(e);
       return e.toString();
     }
   }
@@ -36,7 +38,9 @@ class FirestoreService {
 
   Future deleteEvent(String id) async {
     try {
-      await _eventsCollectionReference.document(id).delete();
+      await _eventsCollectionReference
+          .document(id)
+          .updateData({"active": false});
       return true;
     } catch (e) {
       print(e.toString());
@@ -44,10 +48,22 @@ class FirestoreService {
     }
   }
 
-  Future addSelectedEvent(User user, Event event) async {
+  Future addSelectedEvent(User user, DocumentReference event) async {
     try {
       await _usersCollectionReference.document(user.id).updateData({
-        "events": FieldValue.arrayUnion([event.toJson()])
+        "events": FieldValue.arrayUnion([event])
+      });
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
+
+  Future undoSelectedEvent(User user, DocumentReference event) async {
+    try {
+      await _usersCollectionReference.document(user.id).updateData({
+        "events": FieldValue.arrayRemove([event])
       });
       return true;
     } catch (e) {
