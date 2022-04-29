@@ -1,0 +1,9 @@
+{
+    "aps" : {
+       "alert" : {
+          "title" : "Join!",
+          "subtitle" : "New Event",
+          "body" : "Click this if you want to join a new event!"
+       }
+    } 
+}

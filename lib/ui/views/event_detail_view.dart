@@ -36,7 +36,7 @@ class EventDetailView extends StatelessWidget {
     bool going = this.going;
     var found = false;
     for (DocumentReference d in user.events) {
-      if (d.documentID == ref.documentID) {
+      if (d.id == ref.id) {
         found = true;
       }
     }

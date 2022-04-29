@@ -1,18 +1,18 @@
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:shim_app/models/user.dart';
+import 'package:shim_app/models/shimuser.dart';
 import 'package:shim_app/models/event.dart';
 
 class FirestoreService {
   final CollectionReference _usersCollectionReference =
-      Firestore.instance.collection('users');
+      FirebaseFirestore.instance.collection('users');
   final CollectionReference _eventsCollectionReference =
-      Firestore.instance.collection('events');
+      FirebaseFirestore.instance.collection('events');
 
-  Future createUser(User user) async {
+  Future createUser(ShimUser user) async {
     try {
       print(user.toJson());
-      await _usersCollectionReference.document(user.id).setData(user.toJson());
+      await _usersCollectionReference.doc(user.id).set(user.toJson());
     } catch (e) {
       return e.toString();
     }
@@ -20,8 +20,8 @@ class FirestoreService {
 
   Future getUser(String uid) async {
     try {
-      var userData = await _usersCollectionReference.document(uid).get();
-      return User.fromData(userData.data);
+      var userData = await _usersCollectionReference.doc(uid).get();
+      return ShimUser.fromData(userData.data() as Map<String, dynamic>);
     } catch (e) {
       print(e);
       return e.toString();
@@ -38,9 +38,7 @@ class FirestoreService {
 
   Future deleteEvent(String id) async {
     try {
-      await _eventsCollectionReference
-          .document(id)
-          .updateData({"active": false});
+      await _eventsCollectionReference.doc(id).update({"active": false});
       return true;
     } catch (e) {
       print(e.toString());
@@ -48,9 +46,9 @@ class FirestoreService {
     }
   }
 
-  Future addSelectedEvent(User user, DocumentReference event) async {
+  Future addSelectedEvent(ShimUser user, DocumentReference event) async {
     try {
-      await _usersCollectionReference.document(user.id).updateData({
+      await _usersCollectionReference.doc(user.id).update({
         "events": FieldValue.arrayUnion([event])
       });
       return true;
@@ -60,9 +58,9 @@ class FirestoreService {
     }
   }
 
-  Future undoSelectedEvent(User user, DocumentReference event) async {
+  Future undoSelectedEvent(ShimUser user, DocumentReference event) async {
     try {
-      await _usersCollectionReference.document(user.id).updateData({
+      await _usersCollectionReference.doc(user.id).update({
         "events": FieldValue.arrayRemove([event])
       });
       return true;

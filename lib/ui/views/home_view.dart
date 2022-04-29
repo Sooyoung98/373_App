@@ -4,7 +4,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:get/state_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:shim_app/models/event.dart';
-import 'package:shim_app/models/user.dart';
+import 'package:shim_app/models/shimuser.dart';
 import 'package:shim_app/ui/components/event_tile.dart';
 import 'package:shim_app/ui/style/theme.dart';
 import 'package:shim_app/ui/views/event_detail_view.dart';
@@ -115,12 +115,12 @@ class HomeView extends StatelessWidget {
         ));
   }
 
-  Future getList(User u) async {
+  Future getList(ShimUser u) async {
     List<Tuple2<DocumentReference, DocumentSnapshot>> eventList = [];
     for (DocumentReference e in u.events!) {
       DocumentSnapshot datasnapshot = await e.get();
       if (datasnapshot.exists) {
-        if (datasnapshot.data["active"] == true) {
+        if (datasnapshot.get("active") == true) {
           var t = Tuple2<DocumentReference, DocumentSnapshot>(e, datasnapshot);
           eventList.add(t);
         }

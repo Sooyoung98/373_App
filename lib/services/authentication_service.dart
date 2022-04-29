@@ -1,5 +1,5 @@
 import 'package:shim_app/locator.dart';
-import 'package:shim_app/models/user.dart';
+import 'package:shim_app/models/shimuser.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -9,8 +9,8 @@ class AuthenticationService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final FirestoreService _firestoreService = locator<FirestoreService>();
 
-  late User _currentUser;
-  User get currentUser => _currentUser;
+  late ShimUser _currentUser;
+  ShimUser get currentUser => _currentUser;
 
   Future loginWithEmail({
     required String email,
@@ -21,7 +21,7 @@ class AuthenticationService {
         email: email,
         password: password,
       );
-      await _populateCurrentUser(authResult.user);
+      await _populateCurrentUser(authResult.user!);
       return authResult.user != null;
     } catch (e) {
       return e.toString();
@@ -41,8 +41,8 @@ class AuthenticationService {
       );
 
       // create a new user profile on firestore
-      _currentUser = User(
-          id: authResult.user.uid,
+      _currentUser = ShimUser(
+          id: authResult.user!.uid,
           email: email,
           fullName: fullName,
           userRole: role,
@@ -57,21 +57,24 @@ class AuthenticationService {
   }
 
   Future<bool> isUserLoggedIn() async {
-    var user = await _firebaseAuth.currentUser();
-    await _populateCurrentUser(user);
+    User? user = await _firebaseAuth.currentUser;
+    if (user != null) {
+      await _populateCurrentUser(user);
+    }
+
     return user != null;
   }
 
-  User getUser() {
+  ShimUser getUser() {
     return _currentUser;
   }
 
   Future updateCurrentUser() async {
-    var user = await _firebaseAuth.currentUser();
-    await _populateCurrentUser(user);
+    var user = await _firebaseAuth.currentUser;
+    await _populateCurrentUser(user!);
   }
 
-  Future _populateCurrentUser(FirebaseUser user) async {
+  Future _populateCurrentUser(User user) async {
     if (user != null) {
       _currentUser = await _firestoreService.getUser(user.uid);
     }
