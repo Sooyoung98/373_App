@@ -1,3 +1,5 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:shim_app/firebase_options.dart';
 import 'package:shim_app/ui/views/startup_view.dart';
 import 'package:shim_app/ui/views/main_view.dart';
 import 'package:flutter/material.dart';
@@ -7,11 +9,28 @@ import 'managers/dialog_manager.dart';
 import 'ui/router.dart';
 import 'locator.dart';
 import 'ui/style/theme.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
-void main() {
+void main() async {
   // Register all the models and services before the app starts
   setupLocator();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
 
+  NotificationSettings settings = await messaging.requestPermission(
+    alert: true,
+    announcement: false,
+    badge: true,
+    carPlay: false,
+    criticalAlert: false,
+    provisional: false,
+    sound: true,
+  );
+
+  print('User granted permission: ${settings.authorizationStatus}');
   runApp(MyApp());
 }
 

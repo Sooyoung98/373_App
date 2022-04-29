@@ -30,7 +30,7 @@ class EventView extends StatelessWidget {
             Row(
               children: [
                 StreamBuilder<QuerySnapshot>(
-                  stream: Firestore.instance
+                  stream: FirebaseFirestore.instance
                       .collection("events")
                       .where("active", isEqualTo: true)
                       .snapshots(),
@@ -41,14 +41,14 @@ class EventView extends StatelessWidget {
                             child: ListView.builder(
                             // scrollDirection: Axis.vertical,
                             shrinkWrap: true,
-                            itemCount: snapshot.data?.documents.length,
+                            itemCount: snapshot.data?.docs.length,
                             itemBuilder: (context, index) {
                               DocumentSnapshot? data =
-                                  snapshot.data?.documents[index];
+                                  snapshot.data?.docs[index];
                               DocumentReference? ref = data?.reference;
                               // if user.events
                               Event? temp = Event(
-                                  id: data!.documentID,
+                                  id: data!.id,
                                   title: data['title'],
                                   location: data['location'],
                                   date: data['date'].toDate(),
