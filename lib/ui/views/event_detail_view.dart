@@ -27,7 +27,7 @@ class EventDetailView extends StatelessWidget {
 
   EventDetailView(
       {this.eventObject, this.eventRef, this.user, required this.going});
-  // final Event event;
+  // final Event event;R
 
   @override
   Widget build(BuildContext context) {
@@ -48,139 +48,153 @@ class EventDetailView extends StatelessWidget {
             appBar: _appBar(context),
             body: Container(
                 padding: const EdgeInsets.only(left: 20, right: 20),
-                child: SingleChildScrollView(
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                      Text(
-                        "Event Details",
-                        style: headingStyle,
-                      ),
+                child: FutureBuilder(
+                    future: getData(),
+                    builder: (context, AsyncSnapshot snapshot) {
+                      return !snapshot.hasData
+                          ? Center(child: CircularProgressIndicator())
+                          : SingleChildScrollView(
+                              child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                  Text(
+                                    "Event Details",
+                                    style: headingStyle,
+                                  ),
 
-                      SizedBox(height: 12),
-                      Text(
-                        "Title:",
-                        style: captionStyle,
-                      ),
-                      SizedBox(height: 12),
-                      Text(
-                        event.title as String,
-                        style: GoogleFonts.lato(
-                          textStyle: TextStyle(fontSize: 15),
-                        ),
-                      ),
-                      SizedBox(height: 12),
-                      Text(
-                        "Description:",
-                        style: captionStyle,
-                      ),
-                      SizedBox(height: 12),
-                      Text(
-                        event.description as String,
-                        style: GoogleFonts.lato(
-                          textStyle: TextStyle(fontSize: 15),
-                        ),
-                      ),
-                      // const MyInputField(
-                      //     title: "Requirements", hint: "Enter your requirements"),
-                      SizedBox(height: 12),
-                      Text(
-                        "Location:",
-                        style: captionStyle,
-                      ),
-                      SizedBox(height: 12),
-                      Text(
-                        event.location as String,
-                        style: GoogleFonts.lato(
-                          textStyle: TextStyle(fontSize: 15),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 12,
-                      ),
-                      Text(
-                        "Date:",
-                        style: captionStyle,
-                      ),
-                      SizedBox(height: 12),
-                      Text(
-                        DateFormat('yyyy-MM-dd').format(event.date as DateTime),
-                        style: GoogleFonts.lato(
-                          textStyle: TextStyle(fontSize: 15),
-                        ),
-                      ),
+                                  SizedBox(height: 12),
+                                  Text(
+                                    "Title:",
+                                    style: captionStyle,
+                                  ),
+                                  SizedBox(height: 12),
+                                  Text(
+                                    snapshot.data["title"] as String,
+                                    style: GoogleFonts.lato(
+                                      textStyle: TextStyle(fontSize: 15),
+                                    ),
+                                  ),
+                                  SizedBox(height: 12),
+                                  Text(
+                                    "Description:",
+                                    style: captionStyle,
+                                  ),
+                                  SizedBox(height: 12),
+                                  Text(
+                                    snapshot.data["description"] as String,
+                                    style: GoogleFonts.lato(
+                                      textStyle: TextStyle(fontSize: 15),
+                                    ),
+                                  ),
+                                  // const MyInputField(
+                                  //     title: "Requirements", hint: "Enter your requirements"),
+                                  SizedBox(height: 12),
+                                  Text(
+                                    "Location:",
+                                    style: captionStyle,
+                                  ),
+                                  SizedBox(height: 12),
+                                  Text(
+                                    snapshot.data["location"] as String,
+                                    style: GoogleFonts.lato(
+                                      textStyle: TextStyle(fontSize: 15),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 12,
+                                  ),
+                                  Text(
+                                    "Date:",
+                                    style: captionStyle,
+                                  ),
+                                  SizedBox(height: 12),
+                                  Text(
+                                    DateFormat('yyyy-MM-dd').format(
+                                        snapshot.data["date"].toDate()
+                                            as DateTime),
+                                    style: GoogleFonts.lato(
+                                      textStyle: TextStyle(fontSize: 15),
+                                    ),
+                                  ),
 
-                      SizedBox(height: 12),
-                      Text(
-                        "Time:",
-                        style: captionStyle,
-                      ),
-                      SizedBox(height: 12),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.access_time_rounded,
-                            size: 18,
-                          ),
-                          SizedBox(width: 4),
-                          Text(
-                            "${event.startTime} - ${event.endTime}",
-                            style: GoogleFonts.lato(
-                              textStyle: TextStyle(fontSize: 13),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 18,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          user.userRole == "Admin"
-                              ? BusyButton(
-                                  title: 'edit',
-                                  busy: model.busy,
-                                  onPressed: () {
-                                    Navigator.pushNamed(
-                                        context, 'EditEventView',
-                                        arguments: EditEventView(
-                                          eventObject: event,
-                                          eventRef: ref,
-                                        ));
-                                  },
-                                )
-                              : SizedBox(width: 12),
-                          user.userRole == "Admin"
-                              ? BusyButton(
-                                  title: 'delete',
-                                  busy: model.busy,
-                                  onPressed: () {
-                                    model.deleteEvent(id: event.id as String);
-                                    Navigator.pop(context);
-                                  },
-                                )
-                              : found
-                                  ? BusyButton(
-                                      title: 'Undo',
-                                      busy: model.busy,
-                                      onPressed: () {
-                                        model.undoEventToUser(e: ref);
-                                      },
-                                    )
-                                  //Container()
-                                  : BusyButton(
-                                      title: 'Going',
-                                      busy: model.busy,
-                                      onPressed: () {
-                                        model.addEventToUser(e: ref);
-                                      },
-                                    )
-                        ],
-                      )
-                    ])))));
+                                  SizedBox(height: 12),
+                                  Text(
+                                    "Time:",
+                                    style: captionStyle,
+                                  ),
+                                  SizedBox(height: 12),
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.access_time_rounded,
+                                        size: 18,
+                                      ),
+                                      SizedBox(width: 4),
+                                      Text(
+                                        "${event.startTime} - ${event.endTime}",
+                                        style: GoogleFonts.lato(
+                                          textStyle: TextStyle(fontSize: 13),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 18,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      user.userRole == "Admin"
+                                          ? BusyButton(
+                                              title: 'edit',
+                                              busy: model.busy,
+                                              onPressed: () {
+                                                Navigator.pushNamed(
+                                                    context, 'EditEventView',
+                                                    arguments: EditEventView(
+                                                      eventObject: event,
+                                                      eventRef: ref,
+                                                    ));
+                                              },
+                                            )
+                                          : SizedBox(width: 12),
+                                      user.userRole == "Admin"
+                                          ? BusyButton(
+                                              title: 'delete',
+                                              busy: model.busy,
+                                              onPressed: () {
+                                                model.deleteEvent(
+                                                    id: event.id as String);
+                                                Navigator.pop(context);
+                                              },
+                                            )
+                                          : found
+                                              ? BusyButton(
+                                                  title: 'Undo',
+                                                  busy: model.busy,
+                                                  onPressed: () {
+                                                    model.undoEventToUser(
+                                                        e: ref);
+                                                  },
+                                                )
+                                              //Container()
+                                              : BusyButton(
+                                                  title: 'Going',
+                                                  busy: model.busy,
+                                                  onPressed: () {
+                                                    model.addEventToUser(
+                                                        e: ref);
+                                                  },
+                                                )
+                                    ],
+                                  )
+                                ]));
+                    }))));
   }
 
   _appBar(BuildContext context) {
@@ -193,5 +207,16 @@ class EventDetailView extends StatelessWidget {
             },
             child: const Icon(Icons.arrow_back_ios,
                 size: 20, color: Colors.black)));
+  }
+
+  Future getData() async {
+    var data;
+    DocumentSnapshot datasnapshot = await eventRef.get();
+    if (datasnapshot.exists) {
+      if (datasnapshot.get("active") == true) {
+        data = datasnapshot;
+      }
+    }
+    return data;
   }
 }
