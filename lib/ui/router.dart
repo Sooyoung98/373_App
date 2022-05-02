@@ -1,4 +1,5 @@
 import 'package:shim_app/ui/views/add_event_view.dart';
+import 'package:shim_app/ui/views/edit_event_view.dart';
 import 'package:shim_app/ui/views/event_detail_view.dart';
 import 'package:shim_app/ui/views/home_view.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +52,15 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(
         routeName: settings.name!,
         viewToShow: MainView(user: settings.arguments),
+      );
+    case EditEventViewRoute:
+      var args = settings.arguments as EventDetailView;
+      return _getPageRoute(
+        routeName: settings.name!,
+        viewToShow: EditEventView(
+          eventObject: args.eventObject,
+          eventRef: args.eventRef,
+        ),
       );
     default:
       return MaterialPageRoute(

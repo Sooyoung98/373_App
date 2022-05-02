@@ -8,6 +8,7 @@ import 'package:shim_app/ui/components/button.dart';
 import 'package:shim_app/ui/components/input_field.dart';
 import 'package:shim_app/ui/style/theme.dart';
 import 'package:shim_app/ui/style/theme.dart';
+import 'package:shim_app/ui/views/edit_event_view.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:stacked/stacked.dart';
 
@@ -138,7 +139,20 @@ class EventDetailView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          SizedBox(width: 12),
+                          user.userRole == "Admin"
+                              ? BusyButton(
+                                  title: 'edit',
+                                  busy: model.busy,
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                        context, 'EditEventView',
+                                        arguments: EditEventView(
+                                          eventObject: event,
+                                          eventRef: ref,
+                                        ));
+                                  },
+                                )
+                              : SizedBox(width: 12),
                           user.userRole == "Admin"
                               ? BusyButton(
                                   title: 'delete',

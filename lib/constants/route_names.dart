@@ -5,4 +5,5 @@ const String MainViewRoute = "MainView";
 const String EventViewRoute = "EventView";
 const String ProfileViewRoute = "ProfileView";
 const String EventDetailViewRoute = "EventDetailView";
+const String EditEventViewRoute = "EditEventView";
 // Generate the views here
