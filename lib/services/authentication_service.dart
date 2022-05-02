@@ -32,6 +32,8 @@ class AuthenticationService {
     required String email,
     required String password,
     required String fullName,
+    required DateTime birthday,
+    required String phoneNumber,
     required String role,
   }) async {
     try {
@@ -45,6 +47,8 @@ class AuthenticationService {
           id: authResult.user!.uid,
           email: email,
           fullName: fullName,
+          birthday: birthday,
+          phoneNumber: phoneNumber,
           userRole: role,
           events: []);
 
