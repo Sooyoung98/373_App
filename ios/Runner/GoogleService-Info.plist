@@ -3,32 +3,32 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>742983309567-0dshg30b5tegggp7o9gr8cc9bcbokfm7.apps.googleusercontent.com</string>
+	<string>313503001980-9dl1cc1sv70i7n8ch4b6chuovac2cgq3.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.742983309567-0dshg30b5tegggp7o9gr8cc9bcbokfm7</string>
+	<string>com.googleusercontent.apps.313503001980-9dl1cc1sv70i7n8ch4b6chuovac2cgq3</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCARIJ94PLXT7NTLgF1RntrIEwuiiqTy8E</string>
+	<string>AIzaSyCVm4QHkEIx_5d-gRsirib90SDHzdW8Zlo</string>
 	<key>GCM_SENDER_ID</key>
-	<string>742983309567</string>
+	<string>313503001980</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.sooyoung.flutterauth</string>
+	<string>com.shim.app</string>
 	<key>PROJECT_ID</key>
-	<string>fluttertutorial-6179c</string>
+	<string>shimapp-cbf8f</string>
 	<key>STORAGE_BUCKET</key>
-	<string>fluttertutorial-6179c.appspot.com</string>
+	<string>shimapp-cbf8f.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:742983309567:ios:dc80741c0adac6fc00d4ca</string>
+	<string>1:313503001980:ios:e440b83a8d93fcfe3808f9</string>
 </dict>
 </plist>

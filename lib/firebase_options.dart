@@ -37,30 +37,30 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCoRr7yUclexPVk3ebBJthEgTKi9qXMK8s',
-    appId: '1:742983309567:web:0bfe5358688f43f600d4ca',
-    messagingSenderId: '742983309567',
-    projectId: 'fluttertutorial-6179c',
-    authDomain: 'fluttertutorial-6179c.firebaseapp.com',
-    storageBucket: 'fluttertutorial-6179c.appspot.com',
-    measurementId: 'G-NEHWNZKYDH',
+    apiKey: 'AIzaSyDNnL0uDA_ANnElY3hzAZgSa-IgS957yBg',
+    appId: '1:313503001980:web:bf3f2bfa50a1bcdc3808f9',
+    messagingSenderId: '313503001980',
+    projectId: 'shimapp-cbf8f',
+    authDomain: 'shimapp-cbf8f.firebaseapp.com',
+    storageBucket: 'shimapp-cbf8f.appspot.com',
+    measurementId: 'G-V09GC5Y5DN',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCDCdZW3_YxNPnTsoS6mP64kzSXBiAIwCY',
-    appId: '1:742983309567:android:9ee027849de85f4900d4ca',
-    messagingSenderId: '742983309567',
-    projectId: 'fluttertutorial-6179c',
-    storageBucket: 'fluttertutorial-6179c.appspot.com',
+    apiKey: 'AIzaSyDr_vVbsmWu78ht-39STaTDVnp1MSKvbO0',
+    appId: '1:313503001980:android:4a6eae770307056b3808f9',
+    messagingSenderId: '313503001980',
+    projectId: 'shimapp-cbf8f',
+    storageBucket: 'shimapp-cbf8f.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCARIJ94PLXT7NTLgF1RntrIEwuiiqTy8E',
-    appId: '1:742983309567:ios:dc80741c0adac6fc00d4ca',
-    messagingSenderId: '742983309567',
-    projectId: 'fluttertutorial-6179c',
-    storageBucket: 'fluttertutorial-6179c.appspot.com',
-    iosClientId: '742983309567-0dshg30b5tegggp7o9gr8cc9bcbokfm7.apps.googleusercontent.com',
-    iosBundleId: 'com.sooyoung.flutterauth',
+    apiKey: 'AIzaSyCVm4QHkEIx_5d-gRsirib90SDHzdW8Zlo',
+    appId: '1:313503001980:ios:e440b83a8d93fcfe3808f9',
+    messagingSenderId: '313503001980',
+    projectId: 'shimapp-cbf8f',
+    storageBucket: 'shimapp-cbf8f.appspot.com',
+    iosClientId: '313503001980-9dl1cc1sv70i7n8ch4b6chuovac2cgq3.apps.googleusercontent.com',
+    iosBundleId: 'com.shim.app',
   );
 }

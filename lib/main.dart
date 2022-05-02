@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:shim_app/firebase_options.dart';
+import 'package:shim_app/ui/views/login_view.dart';
 import 'package:shim_app/ui/views/startup_view.dart';
 import 'package:shim_app/ui/views/main_view.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ class MyApp extends StatelessWidget {
               fontFamily: 'Open Sans',
             ),
       ),
-      home: StartUpView(),
+      home: LoginView(),
       onGenerateRoute: generateRoute,
       debugShowCheckedModeBanner: false,
     );

@@ -43,16 +43,18 @@ class HomeView extends StatelessWidget {
                             itemCount: snapshot.data?.length,
                             itemBuilder: (context, index) {
                               var data = snapshot.data?[index];
+                              print(data.item2.data!);
                               Event? temp = Event(
-                                  id: data.item2.data!['id'],
-                                  title: data.item2.data['title'],
-                                  location: data.item2.data['location'],
-                                  date: data.item2.data['date'].toDate(),
-                                  color: data.item2.data['color'],
-                                  endTime: data.item2.data['endTime'],
-                                  startTime: data.item2.data['startTime'],
-                                  repeatType: data.item2.data['repeatType'],
-                                  description: data.item2.data['description']);
+                                  id: data.item1.id,
+                                  title: data.item2.data()['title'],
+                                  location: data.item2.data()['location'],
+                                  date: data.item2.data()['date'].toDate(),
+                                  color: data.item2.data()['color'],
+                                  endTime: data.item2.data()['endTime'],
+                                  startTime: data.item2.data()['startTime'],
+                                  repeatType: data.item2.data()['repeatType'],
+                                  description:
+                                      data.item2.data()['description']);
 
                               return AnimationConfiguration.staggeredList(
                                   position: index,

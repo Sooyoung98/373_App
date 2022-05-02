@@ -1,40 +1,40 @@
 {
   "project_info": {
-    "project_number": "742983309567",
-    "project_id": "fluttertutorial-6179c",
-    "storage_bucket": "fluttertutorial-6179c.appspot.com"
+    "project_number": "313503001980",
+    "project_id": "shimapp-cbf8f",
+    "storage_bucket": "shimapp-cbf8f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:742983309567:android:9ee027849de85f4900d4ca",
+        "mobilesdk_app_id": "1:313503001980:android:4a6eae770307056b3808f9",
         "android_client_info": {
           "package_name": "com.example.shim_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "742983309567-0aed6kc7i2tvqt9pfprgmgts9s3aumrj.apps.googleusercontent.com",
+          "client_id": "313503001980-qpta67ickg6vvmi7rb26dimr81n5tvu9.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCDCdZW3_YxNPnTsoS6mP64kzSXBiAIwCY"
+          "current_key": "AIzaSyDr_vVbsmWu78ht-39STaTDVnp1MSKvbO0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "742983309567-0aed6kc7i2tvqt9pfprgmgts9s3aumrj.apps.googleusercontent.com",
+              "client_id": "313503001980-qpta67ickg6vvmi7rb26dimr81n5tvu9.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "742983309567-0dshg30b5tegggp7o9gr8cc9bcbokfm7.apps.googleusercontent.com",
+              "client_id": "313503001980-9dl1cc1sv70i7n8ch4b6chuovac2cgq3.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.sooyoung.flutterauth"
+                "bundle_id": "com.shim.app"
               }
             }
           ]
