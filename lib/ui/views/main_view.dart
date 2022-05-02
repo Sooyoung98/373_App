@@ -14,8 +14,9 @@ import 'package:shim_app/ui/style/theme.dart';
 
 class MainView extends StatelessWidget {
   var user;
+  var msg;
 
-  MainView({this.user});
+  MainView({this.user, this.msg});
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +82,7 @@ class MainView extends StatelessWidget {
       case 0:
         return user.userRole == "Admin"
             ? AdminHomeView()
-            : HomeView(user: user);
+            : HomeView(user: user, msg: msg);
       case 1:
         return EventView(user: user);
       case 2:
@@ -89,7 +90,7 @@ class MainView extends StatelessWidget {
       default:
         return user.userRole == "Admin"
             ? AdminHomeView()
-            : HomeView(user: user);
+            : HomeView(user: user, msg: msg);
     }
   }
 }

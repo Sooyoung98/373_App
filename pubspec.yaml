@@ -57,6 +57,12 @@ dependencies:
   flutter_staggered_animations: "^1.0.0"
   get:
   firebase_messaging: ^11.2.15
+  intl_phone_number_input: ^0.7.0+2
+  image_picker: ^0.8.5
+  email_validator: '^1.0.6'
+  flash: ^2.0.3+2
+  firebase_storage: ^10.2.14
+  firebase_storage_web: ^3.2.13
 
 
 dev_dependencies:

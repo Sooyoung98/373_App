@@ -12,8 +12,9 @@ import 'package:tuple/tuple.dart';
 
 class HomeView extends StatelessWidget {
   var user;
+  String? msg;
 
-  HomeView({this.user});
+  HomeView({this.user, this.msg});
 
   @override
   Widget build(BuildContext context) {
@@ -52,22 +53,6 @@ class HomeView extends StatelessWidget {
                                   startTime: data.item2.data['startTime'],
                                   repeatType: data.item2.data['repeatType'],
                                   description: data.item2.data['description']);
-
-                              // docRef.get().then((DocumentSnapshot snap) {
-                              //   if (snap.exists) {
-                              //     Event? temp = Event(
-                              //         id: snap['id'],
-                              //         title: snap['title'],
-                              //         location: snap['location'],
-                              //         date: snap['date'].toDate(),
-                              //         color: snap['color'],
-                              //         endTime: snap['endTime'],
-                              //         startTime: snap['startTime'],
-                              //         repeatType: snap['repeatType'],
-                              //         description: snap['description']);
-                              //     e.add(temp);
-                              //   }
-                              // });
 
                               return AnimationConfiguration.staggeredList(
                                   position: index,

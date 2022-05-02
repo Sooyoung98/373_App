@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:shim_app/constants/route_names.dart';
 import 'package:shim_app/locator.dart';
 import 'package:shim_app/models/event.dart';
@@ -7,6 +8,7 @@ import 'package:shim_app/services/authentication_service.dart';
 import 'package:shim_app/services/dialog_service.dart';
 import 'package:shim_app/services/navigation_service.dart';
 import 'package:flutter/foundation.dart';
+import 'package:shim_app/ui/views/main_view.dart';
 
 import '../services/firestore_service.dart';
 import 'base_model.dart';
@@ -54,7 +56,6 @@ class AddEventViewModel extends BaseModel {
 
     if (result is bool) {
       if (result) {
-        // _navigationService.navigateTo(MainViewRoute);
       } else {
         await _dialogService.showDialog(
           title: 'Event Delete Failure',
@@ -62,6 +63,33 @@ class AddEventViewModel extends BaseModel {
         );
       }
     }
+  }
+
+  Future editEvent(
+      {required String id,
+      required String title,
+      required String location,
+      required DateTime date,
+      required int color,
+      required String endTime,
+      required String startTime,
+      required String repeatType,
+      required String description}) async {
+    setBusy(true);
+    var _changedEvent = Event(
+        title: title,
+        location: location,
+        date: date,
+        color: color,
+        endTime: endTime,
+        startTime: startTime,
+        repeatType: repeatType,
+        description: description,
+        active: true);
+
+    var result = await _firestoreService.changeEvent(id, _changedEvent);
+
+    setBusy(false);
   }
 
   Future addEventToUser({required DocumentReference e}) async {
@@ -76,7 +104,9 @@ class AddEventViewModel extends BaseModel {
       if (result) {
         await _authenticationService.updateCurrentUser();
         var user = _authenticationService.getUser();
-        _navigationService.navigateTo(MainViewRoute, arguments: user);
+        var msg = "Successfully added new Going Event!";
+        _navigationService.navigateTo(MainViewRoute,
+            arguments: MainView(user: user, msg: msg));
         // await _dialogService.showDialog(
         //   title: 'Event Addition Success',
         //   description: 'The selected event has been added to your list!',
@@ -102,7 +132,9 @@ class AddEventViewModel extends BaseModel {
       if (result) {
         await _authenticationService.updateCurrentUser();
         var user = _authenticationService.getUser();
-        _navigationService.navigateTo(MainViewRoute, arguments: user);
+        var msg = "Successfully deleted the event from going events!";
+        _navigationService.navigateTo(MainViewRoute,
+            arguments: MainView(user: user, msg: msg));
         // await _dialogService.showDialog(
         //   title: 'Event Addition Success',
         //   description: 'The selected event has been added to your list!',

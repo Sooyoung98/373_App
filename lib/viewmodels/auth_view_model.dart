@@ -3,6 +3,7 @@ import 'package:shim_app/locator.dart';
 import 'package:shim_app/services/authentication_service.dart';
 import 'package:shim_app/services/dialog_service.dart';
 import 'package:shim_app/services/navigation_service.dart';
+import 'package:shim_app/ui/views/main_view.dart';
 
 import 'base_model.dart';
 
@@ -28,7 +29,9 @@ class AuthViewModel extends BaseModel {
     if (result is bool) {
       if (result) {
         var user = _authenticationService.getUser();
-        _navigationService.navigateTo(MainViewRoute, arguments: user);
+        var msg = "Successfully Logged in!";
+        _navigationService.navigateTo(MainViewRoute,
+            arguments: MainView(user: user, msg: msg));
       } else {
         await _dialogService.showDialog(
           title: 'Login Failure',
