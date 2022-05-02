@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 // ignore: unused_import
@@ -139,11 +140,6 @@ class _EditEventViewState extends State<EditEventView> {
                           onChanged: (String? newValue) {
                             setState(() {
                               _selectedType = newValue!;
-                              // newValue == "Engagement"
-                              //     ? _selectedColor == 0
-                              //     : newValue == "Recurring"
-                              //         ? _selectedColor == 1
-                              //         : _selectedColor == 2;
                             });
                           },
                           items: typeList
@@ -166,33 +162,18 @@ class _EditEventViewState extends State<EditEventView> {
                         MyButton(
                             label: "Save",
                             onTap: () {
-                              // model.addEvent(
-                              //     title: titleController.text,
-                              //     location: locationController.text,
-                              //     date: _selectedDate,
-                              //     color: _selectedColor,
-                              //     endTime: _endTime,
-                              //     startTime: _startTime,
-                              //     repeatType: _selectedType,
-                              //     description: descriptionController.text);
+                              model.editEvent(
+                                  id: widget.eventRef.id,
+                                  title: titleController.text,
+                                  location: locationController.text,
+                                  date: _selectedDate,
+                                  color: _selectedColor,
+                                  endTime: _endTime,
+                                  startTime: _startTime,
+                                  repeatType: _selectedType,
+                                  description: descriptionController.text);
                               Navigator.pop(context);
                             })
-                        //   title: 'Create Event',
-                        //   busy: model.busy,
-                        //   onPressed: () {
-                        //     print("HEEEEEE");
-                        //     model.addEvent(
-                        //         title: titleController.text,
-                        //         location: locationController.text,
-                        //         date: _selectedDate,
-                        //         color: _selectedColor,
-                        //         endTime: _endTime,
-                        //         startTime: _startTime,
-                        //         repeatType: _selectedRepeat,
-                        //         description: descriptionController.text);
-                        //     //Navigator.pop(context);
-                        //   },
-                        // )
                       ],
                     )
                   ],
@@ -259,7 +240,7 @@ class _EditEventViewState extends State<EditEventView> {
   _getDateFromUser() async {
     DateTime? _pickerDate = await showDatePicker(
         context: context,
-        initialDate: DateTime.now(),
+        initialDate: _selectedDate,
         firstDate: DateTime(2015),
         lastDate: DateTime(2121));
     if (_pickerDate != null) {
@@ -272,67 +253,33 @@ class _EditEventViewState extends State<EditEventView> {
   }
 
   _getTimeFromUser({required bool isStartTime}) async {
-    var pickedTime = await _showTimePicker();
-    String _formatedTime = pickedTime.format(context);
+    var pickedTime = await _showTimePicker(isStartTime);
+
     if (pickedTime == null) {
       print("Time canceled");
     } else if (isStartTime == true) {
+      String _formatedTime = pickedTime.format(context);
       setState(() {
         _startTime = _formatedTime;
       });
     } else if (isStartTime == false) {
+      String _formatedTime = pickedTime.format(context);
       setState(() {
         _endTime = _formatedTime;
       });
     }
   }
 
-  _showTimePicker() {
+  _showTimePicker(bool isStartTime) {
+    String time = isStartTime == true ? _startTime : _endTime;
+    var hr = time.split(":")[0];
+    var mn = time.split(":")[1].split(" ")[0];
+    var dayPeriod = time.split(":")[1].split(" ")[1];
     return showTimePicker(
         initialEntryMode: TimePickerEntryMode.input,
         context: context,
         initialTime: TimeOfDay(
-            hour: int.parse(_startTime.split(":")[0]),
-            minute: int.parse(_startTime.split(":")[1].split(" ")[0])));
+            hour: dayPeriod == "AM" ? int.parse(hr) : int.parse(hr) + 12,
+            minute: int.parse(mn)));
   }
 }
-// class AddEventView extends StatefulWidget {
-//   const AddEventView({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         backgroundColor: Colors.white,
-//         appBar: _appBar(context),
-//         body: Container(
-//             padding: const EdgeInsets.only(left: 20, right: 20),
-//             child: SingleChildScrollView(
-//                 child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   "Add Event",
-//                   style: headingStyle,
-//                 ),
-//                 const MyInputField(title: "Title", hint: "Enter your title"),
-//                 const MyInputField(
-//                     title: "Description", hint: "Enter your description"),
-//                 const MyInputField(
-//                     title: "Location", hint: "Enter your location"),
-//                     MyInputField(title: "Date", hint: DateFormat.yMd().format)
-//               ],
-//             ))));
-//   }
-
-//   _appBar(BuildContext context) {
-//     return AppBar(
-//         elevation: 0,
-//         backgroundColor: Colors.white,
-//         leading: GestureDetector(
-//             onTap: () {
-//               Navigator.pop(context);
-//             },
-//             child: const Icon(Icons.arrow_back_ios,
-//                 size: 20, color: Colors.black)));
-//   }
-// }

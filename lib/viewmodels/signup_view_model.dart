@@ -2,14 +2,18 @@ import 'package:shim_app/constants/route_names.dart';
 import 'package:shim_app/locator.dart';
 import 'package:shim_app/services/authentication_service.dart';
 import 'package:shim_app/services/dialog_service.dart';
+import 'package:shim_app/services/firestore_service.dart';
 import 'package:shim_app/services/navigation_service.dart';
 import 'package:flutter/foundation.dart';
+import 'package:shim_app/ui/views/main_view.dart';
 
 import 'base_model.dart';
 
 class SignUpViewModel extends BaseModel {
   final AuthenticationService _authenticationService =
       locator<AuthenticationService>();
+  final FirestoreService _firestoreService = locator<FirestoreService>();
+
   final DialogService _dialogService = locator<DialogService>();
   final NavigationService _navigationService = locator<NavigationService>();
 
@@ -53,6 +57,34 @@ class SignUpViewModel extends BaseModel {
         title: 'Sign Up Failure',
         description: result,
       );
+    }
+  }
+
+  Future editProfile(
+      {required String fullName,
+      required DateTime birthday,
+      required String phoneNumber}) async {
+    setBusy(true);
+
+    var user = _authenticationService.getUser();
+    var result = await _firestoreService.editUserProfile(
+        user, fullName, birthday, phoneNumber);
+
+    setBusy(false);
+
+    if (result is bool) {
+      if (result) {
+        await _authenticationService.updateCurrentUser();
+        var user = _authenticationService.getUser();
+        var msg = "Successfully Edited your Profile!";
+        _navigationService.navigateTo(MainViewRoute,
+            arguments: MainView(user: user, msg: msg));
+      } else {
+        await _dialogService.showDialog(
+          title: 'Event Delete Failure',
+          description: 'An Error occurred so the event cannot be deleted.',
+        );
+      }
     }
   }
 }

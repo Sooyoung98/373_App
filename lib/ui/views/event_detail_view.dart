@@ -15,7 +15,7 @@ import 'package:stacked/stacked.dart';
 import '../../viewmodels/event_view_model.dart';
 import '../widgets/busy_button.dart';
 
-class EventDetailView extends StatelessWidget {
+class EventDetailView extends StatefulWidget {
   // const EventDetailView({
   //   Key? key,
   //   // required this.event
@@ -27,12 +27,31 @@ class EventDetailView extends StatelessWidget {
 
   EventDetailView(
       {this.eventObject, this.eventRef, this.user, required this.going});
-  // final Event event;R
+
+  @override
+  State<EventDetailView> createState() => _EventDetailViewState(
+      eventObject: eventObject,
+      eventRef: eventRef,
+      user: this.user,
+      going: this.going);
+}
+
+class _EventDetailViewState extends State<EventDetailView> {
+  var eventObject;
+  var eventRef;
+  var user;
+  var going;
+
+  _EventDetailViewState(
+      {required this.eventObject,
+      required this.eventRef,
+      required this.user,
+      required this.going});
 
   @override
   Widget build(BuildContext context) {
-    var event = this.eventObject;
-    DocumentReference ref = this.eventRef;
+    var event = eventObject;
+    DocumentReference ref = eventRef;
     var user = this.user;
     bool going = this.going;
     var found = false;
@@ -133,7 +152,7 @@ class EventDetailView extends StatelessWidget {
                                       ),
                                       SizedBox(width: 4),
                                       Text(
-                                        "${event.startTime} - ${event.endTime}",
+                                        "${snapshot.data["startTime"]} - ${snapshot.data["endTime"]}",
                                         style: GoogleFonts.lato(
                                           textStyle: TextStyle(fontSize: 13),
                                         ),
@@ -154,12 +173,40 @@ class EventDetailView extends StatelessWidget {
                                               title: 'edit',
                                               busy: model.busy,
                                               onPressed: () {
-                                                Navigator.pushNamed(
-                                                    context, 'EditEventView',
-                                                    arguments: EditEventView(
-                                                      eventObject: event,
-                                                      eventRef: ref,
-                                                    ));
+                                                event = Event(
+                                                    title:
+                                                        snapshot.data["title"],
+                                                    location: snapshot
+                                                        .data["location"],
+                                                    date: snapshot.data["date"]
+                                                        .toDate(),
+                                                    color:
+                                                        snapshot.data["color"],
+                                                    endTime: snapshot
+                                                        .data["endTime"],
+                                                    startTime: snapshot
+                                                        .data["startTime"],
+                                                    repeatType: snapshot
+                                                        .data["repeatType"],
+                                                    description: snapshot
+                                                        .data["description"],
+                                                    active: snapshot
+                                                        .data["active"]);
+                                                Navigator
+                                                    .pushNamed(context,
+                                                        'EditEventView',
+                                                        arguments:
+                                                            EditEventView(
+                                                          eventObject: event,
+                                                          eventRef: ref,
+                                                        )).then(
+                                                    (value) => setState(() {}));
+                                                // Navigator.push(
+                                                //     context,
+                                                //     MaterialPageRoute(
+                                                //         builder: (context) =>
+                                                //             SecondPage())).then(
+                                                //     (value) => setState(() {}));
                                               },
                                             )
                                           : SizedBox(width: 12),

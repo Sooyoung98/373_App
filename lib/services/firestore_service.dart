@@ -46,6 +46,16 @@ class FirestoreService {
     }
   }
 
+  Future changeEvent(String id, Event event) async {
+    try {
+      await _eventsCollectionReference.doc(id).update(event.toJson());
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
+
   Future addSelectedEvent(ShimUser user, DocumentReference event) async {
     try {
       await _usersCollectionReference.doc(user.id).update({
@@ -62,6 +72,21 @@ class FirestoreService {
     try {
       await _usersCollectionReference.doc(user.id).update({
         "events": FieldValue.arrayRemove([event])
+      });
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
+
+  Future editUserProfile(ShimUser user, String fullName, DateTime birthday,
+      String phoneNumber) async {
+    try {
+      await _usersCollectionReference.doc(user.id).update({
+        "fullName": fullName,
+        "birthday": birthday,
+        "phoneNumber": phoneNumber
       });
       return true;
     } catch (e) {
