@@ -80,6 +80,32 @@ class FirestoreService {
     }
   }
 
+  Future addSelectedUser(ShimUser user, DocumentReference event) async {
+    try {
+      DocumentReference uRef = _usersCollectionReference.doc(user.id);
+      await _eventsCollectionReference.doc(event.id).update({
+        "users": FieldValue.arrayUnion([uRef])
+      });
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
+
+  Future undoSelectedUser(ShimUser user, DocumentReference event) async {
+    try {
+      DocumentReference uRef = _usersCollectionReference.doc(user.id);
+      await _eventsCollectionReference.doc(event.id).update({
+        "users": FieldValue.arrayRemove([uRef])
+      });
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+  }
+
   Future editUserProfile(ShimUser user, String fullName, DateTime birthday,
       String phoneNumber) async {
     try {

@@ -43,7 +43,6 @@ class HomeView extends StatelessWidget {
                             itemCount: snapshot.data?.length,
                             itemBuilder: (context, index) {
                               var data = snapshot.data?[index];
-                              print(data.item2.data!);
                               Event? temp = Event(
                                   id: data.item1.id,
                                   title: data.item2.data()['title'],

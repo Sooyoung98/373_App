@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
               fontFamily: 'Open Sans',
             ),
       ),
-      home: LoginView(),
+      home: StartUpView(),
       onGenerateRoute: generateRoute,
       debugShowCheckedModeBanner: false,
     );

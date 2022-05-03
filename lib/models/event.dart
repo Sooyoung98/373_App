@@ -9,6 +9,7 @@ class Event {
   final String? repeatType;
   final String? description;
   final bool? active;
+  final List<dynamic>? users;
 
   Event(
       {this.id,
@@ -20,7 +21,8 @@ class Event {
       this.startTime,
       this.repeatType,
       this.description,
-      this.active});
+      this.active,
+      this.users});
 
   Event.fromData(Map<String, dynamic> data)
       : id = data['id'],
@@ -32,7 +34,8 @@ class Event {
         startTime = data['startTime'],
         repeatType = data['repeatType'],
         description = data['description'],
-        active = data['active'];
+        active = data['active'],
+        users = data['users'];
 
   Map<String, dynamic> toJson() {
     return {
@@ -45,7 +48,8 @@ class Event {
       'startTime': startTime,
       'repeatType': repeatType,
       'description': description,
-      'active': active
+      'active': active,
+      'users': users
     };
   }
 }

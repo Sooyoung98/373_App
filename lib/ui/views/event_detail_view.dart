@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shim_app/models/event.dart';
+import 'package:shim_app/models/shimuser.dart';
 // ignore: unused_import
 import 'package:shim_app/ui/components/button.dart';
 import 'package:shim_app/ui/components/input_field.dart';
@@ -11,6 +12,7 @@ import 'package:shim_app/ui/style/theme.dart';
 import 'package:shim_app/ui/views/edit_event_view.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:stacked/stacked.dart';
+import 'package:tuple/tuple.dart';
 
 import '../../viewmodels/event_view_model.dart';
 import '../widgets/busy_button.dart';
@@ -162,6 +164,78 @@ class _EventDetailViewState extends State<EventDetailView> {
                                   SizedBox(
                                     height: 18,
                                   ),
+                                  Text(
+                                    "Users Attending this Event:",
+                                    style: captionStyle,
+                                  ),
+                                  SizedBox(height: 12),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      user.userRole == "Admin"
+                                          ? FutureBuilder(
+                                              future: getUserList(
+                                                  snapshot.data["users"]),
+                                              builder: (context,
+                                                  AsyncSnapshot snaps) {
+                                                return !snaps.hasData
+                                                    ? Center(
+                                                        child:
+                                                            CircularProgressIndicator())
+                                                    : Container(
+                                                        height: 40,
+                                                        child: ListView.builder(
+                                                          scrollDirection:
+                                                              Axis.horizontal,
+                                                          shrinkWrap: true,
+                                                          itemCount: snaps
+                                                              .data?.length,
+                                                          itemBuilder:
+                                                              (context, index) {
+                                                            ShimUser data =
+                                                                snaps.data?[
+                                                                    index];
+
+                                                            return Padding(
+                                                                padding: EdgeInsets
+                                                                    .only(
+                                                                        right:
+                                                                            8),
+                                                                child:
+                                                                    BusyButton(
+                                                                  title: data
+                                                                      .fullName!,
+                                                                  busy: model
+                                                                      .busy,
+                                                                  onPressed:
+                                                                      () {
+                                                                    showDialog(
+                                                                      context:
+                                                                          context,
+                                                                      builder: (BuildContext
+                                                                              context) =>
+                                                                          _buildPopupDialog(
+                                                                              context,
+                                                                              data),
+                                                                    );
+                                                                    // model.deleteEvent(
+                                                                    //     id: event.id
+                                                                    //         as String);
+                                                                    // Navigator.pop(
+                                                                    //     context);
+                                                                  },
+                                                                ));
+                                                          },
+                                                        ));
+                                              },
+                                            )
+                                          : SizedBox(width: 12),
+                                    ],
+                                  ),
+                                  SizedBox(height: 12),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -201,12 +275,6 @@ class _EventDetailViewState extends State<EventDetailView> {
                                                           eventRef: ref,
                                                         )).then(
                                                     (value) => setState(() {}));
-                                                // Navigator.push(
-                                                //     context,
-                                                //     MaterialPageRoute(
-                                                //         builder: (context) =>
-                                                //             SecondPage())).then(
-                                                //     (value) => setState(() {}));
                                               },
                                             )
                                           : SizedBox(width: 12),
@@ -258,6 +326,7 @@ class _EventDetailViewState extends State<EventDetailView> {
 
   Future getData() async {
     var data;
+    //List<Tuple2<DocumentReference, DocumentSnapshot>> eventList = [];
     DocumentSnapshot datasnapshot = await eventRef.get();
     if (datasnapshot.exists) {
       if (datasnapshot.get("active") == true) {
@@ -265,5 +334,75 @@ class _EventDetailViewState extends State<EventDetailView> {
       }
     }
     return data;
+  }
+
+  Future getUserList(List<dynamic> ulist) async {
+    var usersList = [];
+    for (DocumentReference u in ulist) {
+      DocumentSnapshot u_data = await u.get();
+      ShimUser goingUser = ShimUser(
+          fullName: u_data.get("fullName"),
+          email: u_data.get("email"),
+          phoneNumber: u_data.get("phoneNumber"));
+      usersList.add(goingUser);
+      //print(u_data.get("fullName"));
+    }
+    return usersList;
+  }
+
+  Widget _buildPopupDialog(BuildContext context, ShimUser data) {
+    return AlertDialog(
+      title: Text('User Information'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            "Full Name:",
+            style: captionStyle,
+          ),
+          SizedBox(height: 12),
+          Text(
+            data.fullName!,
+            style: GoogleFonts.lato(
+              textStyle: TextStyle(fontSize: 15),
+            ),
+          ),
+          SizedBox(height: 12),
+          Text(
+            "Email:",
+            style: captionStyle,
+          ),
+          SizedBox(height: 12),
+          Text(
+            data.email!,
+            style: GoogleFonts.lato(
+              textStyle: TextStyle(fontSize: 15),
+            ),
+          ),
+          SizedBox(height: 12),
+          Text(
+            "Phone Number:",
+            style: captionStyle,
+          ),
+          SizedBox(height: 12),
+          Text(
+            data.phoneNumber!,
+            style: GoogleFonts.lato(
+              textStyle: TextStyle(fontSize: 15),
+            ),
+          ),
+        ],
+      ),
+      actions: <Widget>[
+        FlatButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          textColor: Theme.of(context).primaryColor,
+          child: Text('Close'),
+        ),
+      ],
+    );
   }
 }
