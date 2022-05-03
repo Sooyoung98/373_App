@@ -40,7 +40,8 @@ class AddEventViewModel extends BaseModel {
         startTime: startTime,
         repeatType: repeatType,
         description: description,
-        active: true);
+        active: true,
+        users: []);
 
     var result = await _firestoreService.uploadEvent(_newEvent);
 
@@ -97,11 +98,12 @@ class AddEventViewModel extends BaseModel {
 
     var user = _authenticationService.getUser();
     var result = await _firestoreService.addSelectedEvent(user, e);
+    var result2 = await _firestoreService.addSelectedUser(user, e);
 
     setBusy(false);
 
     if (result is bool) {
-      if (result) {
+      if (result && result2) {
         await _authenticationService.updateCurrentUser();
         var user = _authenticationService.getUser();
         var msg = "Successfully added new Going Event!";
@@ -125,11 +127,11 @@ class AddEventViewModel extends BaseModel {
 
     var user = _authenticationService.getUser();
     var result = await _firestoreService.undoSelectedEvent(user, e);
-
+    var result2 = await _firestoreService.undoSelectedUser(user, e);
     setBusy(false);
 
     if (result is bool) {
-      if (result) {
+      if (result && result2) {
         await _authenticationService.updateCurrentUser();
         var user = _authenticationService.getUser();
         var msg = "Successfully deleted the event from going events!";

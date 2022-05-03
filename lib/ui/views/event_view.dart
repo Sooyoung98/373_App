@@ -56,7 +56,8 @@ class EventView extends StatelessWidget {
                                   endTime: data['endTime'],
                                   startTime: data['startTime'],
                                   repeatType: data['repeatType'],
-                                  description: data['description']);
+                                  description: data['description'],
+                                  users: data['users']);
                               return AnimationConfiguration.staggeredList(
                                   position: index,
                                   child: SlideAnimation(
@@ -65,14 +66,6 @@ class EventView extends StatelessWidget {
                                     children: [
                                       GestureDetector(
                                           onTap: () {
-                                            // _showBottomSheet(context, temp);
-                                            // Navigator.of(context)
-                                            //     .pushNamed('EventDetailView');
-                                            // Navigator.pushNamed(
-                                            //     context, 'EventDetailView',
-                                            //     arguments: EventDetailView(
-                                            //       event: temp,
-                                            //     ));
                                             Navigator.pushNamed(
                                                 context, 'EventDetailView',
                                                 arguments: EventDetailView(
@@ -84,15 +77,6 @@ class EventView extends StatelessWidget {
                                           child: EventTile(temp))
                                     ],
                                   ))));
-                              // return EventWidget(
-                              // title: data!['title'],
-                              // location: data['location'],
-                              // date: data['date'].toDate(),
-                              // color: data['color'],
-                              // endTime: data['endTime'],
-                              // startTime: data['startTime'],
-                              // repeatType: data['repeatType'],
-                              // description: data['description']);
                             },
                           ));
                   },
