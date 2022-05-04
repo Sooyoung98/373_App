@@ -1,37 +1,37 @@
 {
   "project_info": {
-    "project_number": "313503001980",
-    "project_id": "shimapp-cbf8f",
-    "storage_bucket": "shimapp-cbf8f.appspot.com"
+    "project_number": "371389960847",
+    "project_id": "shim-e4f1b",
+    "storage_bucket": "shim-e4f1b.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:313503001980:android:4a6eae770307056b3808f9",
+        "mobilesdk_app_id": "1:371389960847:android:9b76d7d55fe43b97ef96fa",
         "android_client_info": {
           "package_name": "com.example.shim_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "313503001980-qpta67ickg6vvmi7rb26dimr81n5tvu9.apps.googleusercontent.com",
+          "client_id": "371389960847-khchq8aa89ud930regh46nedn4t0328r.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDr_vVbsmWu78ht-39STaTDVnp1MSKvbO0"
+          "current_key": "AIzaSyDxwFAJdRwwCAThWrszPqIvi3H6e0G9Ks0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "313503001980-qpta67ickg6vvmi7rb26dimr81n5tvu9.apps.googleusercontent.com",
+              "client_id": "371389960847-khchq8aa89ud930regh46nedn4t0328r.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "313503001980-9dl1cc1sv70i7n8ch4b6chuovac2cgq3.apps.googleusercontent.com",
+              "client_id": "371389960847-9ivc35g2r5cp8ivo71rbs3u82ogbgpp0.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.shim.app"
