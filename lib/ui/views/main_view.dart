@@ -81,7 +81,7 @@ class MainView extends StatelessWidget {
     switch (index) {
       case 0:
         return user.userRole == "Admin"
-            ? AdminHomeView()
+            ? AdminHomeView(user: user)
             : HomeView(user: user, msg: msg);
       case 1:
         return EventView(user: user);
@@ -89,7 +89,7 @@ class MainView extends StatelessWidget {
         return ProfileView(user: user);
       default:
         return user.userRole == "Admin"
-            ? AdminHomeView()
+            ? AdminHomeView(user: user)
             : HomeView(user: user, msg: msg);
     }
   }

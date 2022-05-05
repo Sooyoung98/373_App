@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:shim_app/constants/route_names.dart';
 import 'package:shim_app/locator.dart';
 import 'package:shim_app/services/authentication_service.dart';
@@ -16,6 +18,7 @@ class SignUpViewModel extends BaseModel {
 
   final DialogService _dialogService = locator<DialogService>();
   final NavigationService _navigationService = locator<NavigationService>();
+  final FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
 
   String _selectedRole = 'Select a User Role';
   String get selectedRole => _selectedRole;
@@ -45,6 +48,15 @@ class SignUpViewModel extends BaseModel {
 
     if (result is bool) {
       if (result) {
+        firebaseMessaging.getToken().then((token) async {
+          try {
+            await FirebaseFirestore.instance.collection('tokens').add({
+              'token': token,
+            });
+          } catch (e) {
+            print(e);
+          }
+        });
         _navigationService.pop();
       } else {
         await _dialogService.showDialog(

@@ -48,7 +48,16 @@ class FirestoreService {
 
   Future changeEvent(String id, Event event) async {
     try {
-      await _eventsCollectionReference.doc(id).update(event.toJson());
+      await _eventsCollectionReference.doc(id).update({
+        "title": event.title,
+        "description": event.description,
+        "location": event.location,
+        "date": event.date,
+        "startTime": event.startTime,
+        "endTime": event.endTime,
+        "repeatType": event.repeatType,
+        "color": event.color
+      });
       return true;
     } catch (e) {
       print(e.toString());

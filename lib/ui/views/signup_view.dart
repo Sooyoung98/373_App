@@ -39,6 +39,7 @@ class _SignUpViewState extends State<SignUpView> {
     return ViewModelBuilder<SignUpViewModel>.reactive(
       viewModelBuilder: () => SignUpViewModel(),
       builder: (context, model, child) => Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: _appBar(context),
         body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
