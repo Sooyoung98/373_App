@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:shim_app/services/firestore_service.dart';
 import 'package:shim_app/ui/components/button.dart';
 import 'package:shim_app/ui/style/theme.dart';
@@ -14,7 +15,7 @@ import 'package:stacked/stacked.dart';
 
 class ProfileView extends StatelessWidget {
   var user;
-
+  DateFormat formatter = DateFormat('yyyy-MM-dd');
   ProfileView({this.user});
 
   @override
@@ -77,6 +78,31 @@ class ProfileView extends StatelessWidget {
                                   SizedBox(height: 12),
                                   Text(
                                     snapshot.data["email"] as String,
+                                    style: GoogleFonts.lato(
+                                      textStyle: TextStyle(fontSize: 15),
+                                    ),
+                                  ),
+                                  SizedBox(height: 12),
+                                  Text(
+                                    "Phone Number:",
+                                    style: captionStyle,
+                                  ),
+                                  SizedBox(height: 12),
+                                  Text(
+                                    snapshot.data["phoneNumber"] as String,
+                                    style: GoogleFonts.lato(
+                                      textStyle: TextStyle(fontSize: 15),
+                                    ),
+                                  ),
+                                  SizedBox(height: 12),
+                                  Text(
+                                    "Birthday:",
+                                    style: captionStyle,
+                                  ),
+                                  SizedBox(height: 12),
+                                  Text(
+                                    formatter.format(
+                                        snapshot.data["birthday"].toDate()),
                                     style: GoogleFonts.lato(
                                       textStyle: TextStyle(fontSize: 15),
                                     ),

@@ -91,7 +91,12 @@ class _ProfileViewState extends State<ProfileEditView> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(width: 12),
-                      CircleAvatar(radius: 80, backgroundColor: Colors.grey),
+                      CircleAvatar(
+                          radius: 80,
+                          foregroundImage: AssetImage(
+                            'assets/images/smiling.png',
+                          ),
+                          backgroundColor: Colors.grey),
                       SizedBox(width: 12),
                       // Align(
                       //   alignment: Alignment.center,
