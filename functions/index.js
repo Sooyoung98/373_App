@@ -28,13 +28,9 @@ exports.createEventTrigger = functions.firestore.document(
     
                 var payload ={
                 'notification':{
-                        'title': 'SHIM needs your help',
-                        'body': 'Volunteers needed for' + msgData.title,
+                        'title': 'New Event: ' + msgData.title,
+                        'body': 'Join the event on ' + msgData.date.toDate().toDateString(),
                         'sound': 'default',
-                    },
-                'data':{
-                        'title': msgData.title,
-                        'description': msgData.description,
                     }
                     };
     
@@ -47,51 +43,44 @@ exports.createEventTrigger = functions.firestore.document(
         });
         }
 
-        
-
-        
 });
 
-exports.editEventTrigger = functions.firestore.document(
-    'events/{eventId}'
-    ).onUpdate((snapshot,context)=>{
+// exports.editEventTrigger = functions.firestore.document(
+//     'events/{eventId}'
+//     ).onUpdate((change,context)=>{
 
-        msgData = snapshot.data();
+//         msgData = change.after.data();
 
-        if (msgData.repeatType == "Urgent") {
-            admin.firestore().collection('tokens').get().then((snapshots)=>{
-                var tokens = [];
-                if(snapshots.empty)
-                {
-                console.log('No Devices Found');
-                }
-                else{
-                for(var pushTokens of snapshots.docs){
-                tokens.push(pushTokens.data().token);
-                }
+//         if (msgData.repeatType == "Urgent") {
+//             admin.firestore().collection('tokens').get().then((snapshots)=>{
+//                 var tokens = [];
+//                 if(snapshots.empty)
+//                 {
+//                 console.log('No Devices Found');
+//                 }
+//                 else{
+//                 for(var pushTokens of snapshots.docs){
+//                 tokens.push(pushTokens.data().token);
+//                 }
     
-                var payload ={
-                'notification':{
-                        'title': 'SHIM needs your help',
-                        'body': 'Volunteers needed for' + msgData.title,
-                        'sound': 'default',
-                    },
-                'data':{
-                        'title': msgData.title,
-                        'description': msgData.description,
-                    }
-                    };
+//                 var payload ={
+//                 'notification':{
+//                         'title': 'Updated Event: ' + msgData.title,
+//                         'body': 'Join the event on ' + msgData.date.toDate().toDateString(),
+//                         'sound': 'default',
+//                     }
+//                     };
     
-                return admin.messaging().sendToDevice(tokens,    payload).then((response) => {
-                    console.log('pushed them all')
-                    }).catch((err) => {
-                        console.log(err);
-                    });
-            }
-        });
-        }
+//                 return admin.messaging().sendToDevice(tokens,    payload).then((response) => {
+//                     console.log('pushed them all')
+//                     }).catch((err) => {
+//                         console.log(err);
+//                     });
+//             }
+//         });
+//         }
 
         
 
         
-});
+// });

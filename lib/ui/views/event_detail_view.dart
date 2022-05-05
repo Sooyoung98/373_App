@@ -206,14 +206,10 @@ class _EventDetailViewState extends State<EventDetailView> {
                                                                     .only(
                                                                         right:
                                                                             8),
-                                                                child:
-                                                                    BusyButton(
-                                                                  title: data
+                                                                child: MyButton(
+                                                                  label: data
                                                                       .fullName!,
-                                                                  busy: model
-                                                                      .busy,
-                                                                  onPressed:
-                                                                      () {
+                                                                  onTap: () {
                                                                     showDialog(
                                                                       context:
                                                                           context,

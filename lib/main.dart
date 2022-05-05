@@ -30,7 +30,7 @@ void main() async {
   setupLocator();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    name: "SHIM",
+    name: "SDFDF",
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
