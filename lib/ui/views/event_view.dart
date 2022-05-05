@@ -33,6 +33,7 @@ class EventView extends StatelessWidget {
                   stream: FirebaseFirestore.instance
                       .collection("events")
                       .where("active", isEqualTo: true)
+                      .orderBy("date", descending: false)
                       .snapshots(),
                   builder: (context, snapshot) {
                     return !snapshot.hasData

@@ -50,6 +50,9 @@ class ProfileView extends StatelessWidget {
                                       SizedBox(width: 12),
                                       CircleAvatar(
                                           radius: 80,
+                                          foregroundImage: AssetImage(
+                                            'assets/images/smiling.png',
+                                          ),
                                           backgroundColor: Colors.grey),
                                       SizedBox(width: 12),
                                     ],

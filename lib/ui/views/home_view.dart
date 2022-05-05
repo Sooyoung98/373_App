@@ -85,16 +85,18 @@ class HomeView extends StatelessWidget {
   }
 
   Future getList(ShimUser u) async {
-    List<Tuple2<DocumentReference, DocumentSnapshot>> eventList = [];
+    List<Tuple3<DocumentReference, DocumentSnapshot, DateTime>> eventList = [];
     for (DocumentReference e in u.events!) {
       DocumentSnapshot datasnapshot = await e.get();
       if (datasnapshot.exists) {
         if (datasnapshot.get("active") == true) {
-          var t = Tuple2<DocumentReference, DocumentSnapshot>(e, datasnapshot);
+          var t = Tuple3<DocumentReference, DocumentSnapshot, DateTime>(
+              e, datasnapshot, datasnapshot.get("date").toDate());
           eventList.add(t);
         }
       }
     }
+    eventList.sort((a, b) => a.item3.compareTo(b.item3));
     return eventList;
   }
 
