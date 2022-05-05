@@ -164,10 +164,12 @@ class _EventDetailViewState extends State<EventDetailView> {
                                   SizedBox(
                                     height: 18,
                                   ),
-                                  Text(
-                                    "Users Attending this Event:",
-                                    style: captionStyle,
-                                  ),
+                                  user.userRole == "Admin"
+                                      ? Text(
+                                          "Users Attending this Event:",
+                                          style: captionStyle,
+                                        )
+                                      : Container(),
                                   SizedBox(height: 12),
                                   Row(
                                     mainAxisAlignment:

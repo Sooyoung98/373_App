@@ -85,23 +85,6 @@ class ProfileView extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      SizedBox(width: 12),
-                                      BusyButton(
-                                        title: 'Logout',
-                                        busy: model.busy,
-                                        onPressed: () {
-                                          model.logout();
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      SizedBox(width: 12),
                                       BusyButton(
                                         title: 'Edit Profile',
                                         busy: model.busy,
@@ -115,8 +98,38 @@ class ProfileView extends StatelessWidget {
                                                   ProfileEditView(user: user));
                                         },
                                       ),
+                                      SizedBox(width: 12),
+                                      BusyButton(
+                                        title: 'Logout',
+                                        busy: model.busy,
+                                        onPressed: () {
+                                          model.logout();
+                                        },
+                                      ),
                                     ],
-                                  )
+                                  ),
+                                  // Row(
+                                  //   mainAxisAlignment:
+                                  //       MainAxisAlignment.spaceBetween,
+                                  //   crossAxisAlignment:
+                                  //       CrossAxisAlignment.center,
+                                  //   children: [
+                                  //     SizedBox(width: 12),
+                                  //     BusyButton(
+                                  //       title: 'Edit Profile',
+                                  //       busy: model.busy,
+                                  //       onPressed: () {
+                                  //         // Navigator.of(context).push(MaterialPageRoute(
+                                  //         //     builder: (context) =>
+                                  //         //         ProfileEditView(user: user)));
+                                  //         Navigator.pushNamed(
+                                  //             context, 'ProfileEditView',
+                                  //             arguments:
+                                  //                 ProfileEditView(user: user));
+                                  //       },
+                                  //     ),
+                                  //   ],
+                                  // )
                                 ]));
                     }))));
   }
