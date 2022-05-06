@@ -30,7 +30,7 @@ void main() async {
   setupLocator();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    name: "SDFDF",
+    name: "SHIM",
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'SHIM App',
+      title: 'SHIM',
       builder: (context, child) => Navigator(
         key: locator<DialogService>().dialogNavigationKey,
         onGenerateRoute: (settings) => MaterialPageRoute(
