@@ -69,12 +69,13 @@ class AdminHomeView extends StatelessWidget {
                                 )),
                             // Row(children: [
                             Container(
-                              padding: EdgeInsets.only(left: 70, right: 70),
+                              padding: EdgeInsets.only(left: 60, right: 60),
                               child: GridView.count(
+                                  primary: false,
                                   scrollDirection: Axis.vertical,
                                   shrinkWrap: true,
-                                  mainAxisSpacing: 70,
-                                  crossAxisSpacing: 70,
+                                  mainAxisSpacing: 20,
+                                  crossAxisSpacing: 20,
                                   crossAxisCount: 1,
                                   children: [
                                     _buildSingleContainer(

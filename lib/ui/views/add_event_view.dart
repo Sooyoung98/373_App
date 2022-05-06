@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:shim_app/ui/components/button.dart';
 import 'package:shim_app/ui/components/input_field.dart';
 import 'package:shim_app/ui/style/theme.dart';
-import 'package:shim_app/ui/style/theme.dart';
+// import 'package:shim_app/ui/style/theme.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:stacked/stacked.dart';
 
@@ -143,16 +143,26 @@ class _AddEventViewState extends State<AddEventView> {
                         MyButton(
                             label: "Create Event",
                             onTap: () {
-                              model.addEvent(
-                                  title: titleController.text,
-                                  location: locationController.text,
-                                  date: _selectedDate,
-                                  color: _selectedColor,
-                                  endTime: _endTime,
-                                  startTime: _startTime,
-                                  repeatType: _selectedType,
-                                  description: descriptionController.text);
-                              Navigator.pop(context);
+                              if (titleController.text.isNotEmpty &&
+                                  descriptionController.text.isNotEmpty &&
+                                  locationController.text.isNotEmpty) {
+                                model.addEvent(
+                                    title: titleController.text,
+                                    location: locationController.text,
+                                    date: _selectedDate,
+                                    color: _selectedColor,
+                                    endTime: _endTime,
+                                    startTime: _startTime,
+                                    repeatType: _selectedType,
+                                    description: descriptionController.text,
+                                    context: context);
+                                // Navigator.pop(context);
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text(
+                                            "One of the fields are empty!")));
+                              }
                             })
                         //   title: 'Create Event',
                         //   busy: model.busy,
@@ -273,43 +283,3 @@ class _AddEventViewState extends State<AddEventView> {
             minute: int.parse(_startTime.split(":")[1].split(" ")[0])));
   }
 }
-// class AddEventView extends StatefulWidget {
-//   const AddEventView({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         backgroundColor: Colors.white,
-//         appBar: _appBar(context),
-//         body: Container(
-//             padding: const EdgeInsets.only(left: 20, right: 20),
-//             child: SingleChildScrollView(
-//                 child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   "Add Event",
-//                   style: headingStyle,
-//                 ),
-//                 const MyInputField(title: "Title", hint: "Enter your title"),
-//                 const MyInputField(
-//                     title: "Description", hint: "Enter your description"),
-//                 const MyInputField(
-//                     title: "Location", hint: "Enter your location"),
-//                     MyInputField(title: "Date", hint: DateFormat.yMd().format)
-//               ],
-//             ))));
-//   }
-
-//   _appBar(BuildContext context) {
-//     return AppBar(
-//         elevation: 0,
-//         backgroundColor: Colors.white,
-//         leading: GestureDetector(
-//             onTap: () {
-//               Navigator.pop(context);
-//             },
-//             child: const Icon(Icons.arrow_back_ios,
-//                 size: 20, color: Colors.black)));
-//   }
-// }

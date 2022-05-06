@@ -29,7 +29,8 @@ class AddEventViewModel extends BaseModel {
       required String endTime,
       required String startTime,
       required String repeatType,
-      required String description}) async {
+      required String description,
+      required BuildContext context}) async {
     setBusy(true);
     var _newEvent = Event(
         title: title,
@@ -45,10 +46,13 @@ class AddEventViewModel extends BaseModel {
 
     var result = await _firestoreService.uploadEvent(_newEvent);
 
+    Navigator.pop(context);
+
     setBusy(false);
   }
 
-  Future deleteEvent({required String id}) async {
+  Future deleteEvent(
+      {required String id, required BuildContext context}) async {
     setBusy(true);
 
     var result = await _firestoreService.deleteEvent(id);
@@ -57,6 +61,7 @@ class AddEventViewModel extends BaseModel {
 
     if (result is bool) {
       if (result) {
+        Navigator.pop(context);
       } else {
         await _dialogService.showDialog(
           title: 'Event Delete Failure',

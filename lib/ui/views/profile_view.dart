@@ -33,133 +33,135 @@ class ProfileView extends StatelessWidget {
                       return !snapshot.hasData
                           ? Center(child: CircularProgressIndicator())
                           : SingleChildScrollView(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 20, horizontal: 10),
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                  SizedBox(height: 20),
-                                  Text(
-                                    "Profile",
-                                    style: headingStyle,
-                                  ),
-                                  SizedBox(height: 20),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      SizedBox(width: 12),
-                                      CircleAvatar(
-                                          radius: 80,
-                                          foregroundImage: AssetImage(
-                                            'assets/images/smiling.png',
-                                          ),
-                                          backgroundColor: Colors.grey),
-                                      SizedBox(width: 12),
-                                    ],
-                                  ),
-                                  SizedBox(height: 20),
-                                  Text(
-                                    "Name:",
-                                    style: captionStyle,
-                                  ),
-                                  SizedBox(height: 12),
-                                  Text(
-                                    snapshot.data["fullName"] as String,
-                                    style: GoogleFonts.lato(
-                                      textStyle: TextStyle(fontSize: 15),
+                                    SizedBox(height: 20),
+                                    Text(
+                                      "Profile",
+                                      style: headingStyle,
                                     ),
-                                  ),
-                                  SizedBox(height: 12),
-                                  Text(
-                                    "Email:",
-                                    style: captionStyle,
-                                  ),
-                                  SizedBox(height: 12),
-                                  Text(
-                                    snapshot.data["email"] as String,
-                                    style: GoogleFonts.lato(
-                                      textStyle: TextStyle(fontSize: 15),
+                                    SizedBox(height: 20),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        SizedBox(width: 12),
+                                        CircleAvatar(
+                                            radius: 80,
+                                            foregroundImage: AssetImage(
+                                              'assets/images/smiling.png',
+                                            ),
+                                            backgroundColor: Colors.grey),
+                                        SizedBox(width: 12),
+                                      ],
                                     ),
-                                  ),
-                                  SizedBox(height: 12),
-                                  Text(
-                                    "Phone Number:",
-                                    style: captionStyle,
-                                  ),
-                                  SizedBox(height: 12),
-                                  Text(
-                                    snapshot.data["phoneNumber"] as String,
-                                    style: GoogleFonts.lato(
-                                      textStyle: TextStyle(fontSize: 15),
+                                    SizedBox(height: 20),
+                                    Text(
+                                      "Name:",
+                                      style: captionStyle,
                                     ),
-                                  ),
-                                  SizedBox(height: 12),
-                                  Text(
-                                    "Birthday:",
-                                    style: captionStyle,
-                                  ),
-                                  SizedBox(height: 12),
-                                  Text(
-                                    formatter.format(
-                                        snapshot.data["birthday"].toDate()),
-                                    style: GoogleFonts.lato(
-                                      textStyle: TextStyle(fontSize: 15),
-                                    ),
-                                  ),
-                                  SizedBox(height: 50),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      BusyButton(
-                                        title: 'Edit Profile',
-                                        busy: model.busy,
-                                        onPressed: () {
-                                          // Navigator.of(context).push(MaterialPageRoute(
-                                          //     builder: (context) =>
-                                          //         ProfileEditView(user: user)));
-                                          Navigator.pushNamed(
-                                              context, 'ProfileEditView',
-                                              arguments:
-                                                  ProfileEditView(user: user));
-                                        },
+                                    SizedBox(height: 12),
+                                    Text(
+                                      snapshot.data["fullName"] as String,
+                                      style: GoogleFonts.lato(
+                                        textStyle: TextStyle(fontSize: 15),
                                       ),
-                                      SizedBox(width: 12),
-                                      BusyButton(
-                                        title: 'Logout',
-                                        busy: model.busy,
-                                        onPressed: () {
-                                          model.logout();
-                                        },
+                                    ),
+                                    SizedBox(height: 12),
+                                    Text(
+                                      "Email:",
+                                      style: captionStyle,
+                                    ),
+                                    SizedBox(height: 12),
+                                    Text(
+                                      snapshot.data["email"] as String,
+                                      style: GoogleFonts.lato(
+                                        textStyle: TextStyle(fontSize: 15),
                                       ),
-                                    ],
-                                  ),
-                                  // Row(
-                                  //   mainAxisAlignment:
-                                  //       MainAxisAlignment.spaceBetween,
-                                  //   crossAxisAlignment:
-                                  //       CrossAxisAlignment.center,
-                                  //   children: [
-                                  //     SizedBox(width: 12),
-                                  //     BusyButton(
-                                  //       title: 'Edit Profile',
-                                  //       busy: model.busy,
-                                  //       onPressed: () {
-                                  //         // Navigator.of(context).push(MaterialPageRoute(
-                                  //         //     builder: (context) =>
-                                  //         //         ProfileEditView(user: user)));
-                                  //         Navigator.pushNamed(
-                                  //             context, 'ProfileEditView',
-                                  //             arguments:
-                                  //                 ProfileEditView(user: user));
-                                  //       },
-                                  //     ),
-                                  //   ],
-                                  // )
-                                ]));
+                                    ),
+                                    SizedBox(height: 12),
+                                    Text(
+                                      "Phone Number:",
+                                      style: captionStyle,
+                                    ),
+                                    SizedBox(height: 12),
+                                    Text(
+                                      snapshot.data["phoneNumber"] as String,
+                                      style: GoogleFonts.lato(
+                                        textStyle: TextStyle(fontSize: 15),
+                                      ),
+                                    ),
+                                    SizedBox(height: 12),
+                                    Text(
+                                      "Birthday:",
+                                      style: captionStyle,
+                                    ),
+                                    SizedBox(height: 12),
+                                    Text(
+                                      formatter.format(
+                                          snapshot.data["birthday"].toDate()),
+                                      style: GoogleFonts.lato(
+                                        textStyle: TextStyle(fontSize: 15),
+                                      ),
+                                    ),
+                                    SizedBox(height: 30),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        BusyButton(
+                                          title: 'Edit Profile',
+                                          busy: model.busy,
+                                          onPressed: () {
+                                            // Navigator.of(context).push(MaterialPageRoute(
+                                            //     builder: (context) =>
+                                            //         ProfileEditView(user: user)));
+                                            Navigator.pushNamed(
+                                                context, 'ProfileEditView',
+                                                arguments: ProfileEditView(
+                                                    user: user));
+                                          },
+                                        ),
+                                        SizedBox(width: 12),
+                                        BusyButton(
+                                          title: 'Logout',
+                                          busy: model.busy,
+                                          onPressed: () {
+                                            model.logout();
+                                          },
+                                        ),
+                                      ],
+                                    ),
+                                    // Row(
+                                    //   mainAxisAlignment:
+                                    //       MainAxisAlignment.spaceBetween,
+                                    //   crossAxisAlignment:
+                                    //       CrossAxisAlignment.center,
+                                    //   children: [
+                                    //     SizedBox(width: 12),
+                                    //     BusyButton(
+                                    //       title: 'Edit Profile',
+                                    //       busy: model.busy,
+                                    //       onPressed: () {
+                                    //         // Navigator.of(context).push(MaterialPageRoute(
+                                    //         //     builder: (context) =>
+                                    //         //         ProfileEditView(user: user)));
+                                    //         Navigator.pushNamed(
+                                    //             context, 'ProfileEditView',
+                                    //             arguments:
+                                    //                 ProfileEditView(user: user));
+                                    //       },
+                                    //     ),
+                                    //   ],
+                                    // )
+                                  ]));
                     }))));
   }
 

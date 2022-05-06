@@ -282,8 +282,9 @@ class _EventDetailViewState extends State<EventDetailView> {
                                               busy: model.busy,
                                               onPressed: () {
                                                 model.deleteEvent(
-                                                    id: event.id as String);
-                                                Navigator.pop(context);
+                                                    id: event.id as String,
+                                                    context: context);
+                                                // Navigator.pop(context);
                                               },
                                             )
                                           : found

@@ -63,13 +63,13 @@ class EventTile extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(height: 12),
-                Text(
-                  event?.description ?? "",
-                  style: GoogleFonts.lato(
-                    textStyle: TextStyle(fontSize: 15, color: Colors.grey[100]),
-                  ),
-                ),
+                // SizedBox(height: 12),
+                // Text(
+                //   event?.description ?? "",
+                //   style: GoogleFonts.lato(
+                //     textStyle: TextStyle(fontSize: 15, color: Colors.grey[100]),
+                //   ),
+                // ),
               ],
             ),
           ),

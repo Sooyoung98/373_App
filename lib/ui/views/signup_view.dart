@@ -39,9 +39,9 @@ class _SignUpViewState extends State<SignUpView> {
     return ViewModelBuilder<SignUpViewModel>.reactive(
       viewModelBuilder: () => SignUpViewModel(),
       builder: (context, model, child) => Scaffold(
-        resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: true,
         appBar: _appBar(context),
-        body: Padding(
+        body: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 50.0),
             child: Form(
               key: _formKey,
@@ -203,6 +203,9 @@ class _SignUpViewState extends State<SignUpView> {
                                 fullName: fullNameController.text,
                                 birthday: _selectedDate,
                                 phoneNumber: number.toString());
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("Invalid Input!")));
                           }
                         },
                       )
